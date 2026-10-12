@@ -66,13 +66,73 @@
   </script>
   <!-- ============ end tracking loader ============ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Harbor Glow — Immersive Holiday Light Experience | West Harbor, San Pedro</title>
-  <meta name="description" content="Harbor Glow by Glow Works — a walk-through holiday light experience at West Harbor at Port of Los Angeles. Nov 20, 2026 – Jan 3, 2027 at 1332 S Harbor Blvd, San Pedro, CA 90731." />
+  <title>Harbor Glow | Christmas Lights at West Harbor, San Pedro</title>
+  <meta name="description" content="Walk-through holiday light show at West Harbor at Port of Los Angeles in San Pedro. Two glowing worlds, 17 scenes, open nightly Nov 20, 2026 – Jan 3, 2027." />
 
-  <meta property="og:title" content="Harbor Glow — Immersive Holiday Light Experience" />
-  <meta property="og:description" content="A walk-through world of light at West Harbor at Port of Los Angeles. Nov 20, 2026 – Jan 3, 2027." />
+  <meta property="og:title" content="Harbor Glow | Holiday Lights at West Harbor, San Pedro" />
+  <meta property="og:description" content="Walk-through holiday light show at West Harbor at Port of Los Angeles in San Pedro. Two glowing worlds, 17 scenes, open nightly Nov 20, 2026 – Jan 3, 2027." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://harborglownights.com" />
+  <link rel="canonical" href="https://harborglownights.com/" />
+  <meta property="og:site_name" content="Harbor Glow" />
+  <meta property="og:image" content="https://harborglownights.com/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Harbor Glow holiday light experience at West Harbor, San Pedro" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Harbor Glow | Holiday Lights at West Harbor, San Pedro" />
+  <meta name="twitter:description" content="Walk-through holiday light show at West Harbor at Port of Los Angeles in San Pedro. Two glowing worlds, 17 scenes, open nightly Nov 20, 2026 – Jan 3, 2027." />
+  <meta name="twitter:image" content="https://harborglownights.com/images/og-image.jpg" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://harborglownights.com/#website",
+      "name": "Harbor Glow",
+      "url": "https://harborglownights.com/"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://harborglownights.com/#org",
+      "name": "Glow Works Inc.",
+      "url": "https://glowworksinc.com",
+      "email": "info@harborglownights.com"
+    },
+    {
+      "@type": "Event",
+      "name": "Harbor Glow — Holiday Light Experience",
+      "description": "A walk-through holiday light show at West Harbor at Port of Los Angeles in San Pedro: two illuminated worlds, Winter Dreamscape and World Beneath the Waves, with seventeen light scenes. Open nightly.",
+      "startDate": "2026-11-20",
+      "endDate": "2027-01-03",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "location": {
+        "@type": "Place",
+        "name": "West Harbor at Port of Los Angeles",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1332 S Harbor Blvd",
+          "addressLocality": "San Pedro",
+          "addressRegion": "CA",
+          "postalCode": "90731",
+          "addressCountry": "US"
+        }
+      },
+      "image": [
+        "https://harborglownights.com/images/og-image.jpg",
+        "https://harborglownights.com/images/trees.jpg",
+        "https://harborglownights.com/images/ice_gate.jpg"
+      ],
+      "organizer": {
+        "@id": "https://harborglownights.com/#org"
+      },
+      "url": "https://harborglownights.com/"
+    }
+  ]
+}
+  </script>
+  <meta property="og:url" content="https://harborglownights.com/" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -102,7 +162,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="icon" href="images/logo.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 
   <style>
     html { scroll-behavior: smooth; }
@@ -231,9 +292,10 @@
   <!-- ============ HERO ============ -->
   <section id="top" class="hero-bg relative min-h-[100svh] flex items-center justify-center text-center px-6 pt-28 pb-20">
     <div class="relative z-10 max-w-4xl 2xl:max-w-5xl mx-auto">
-      <div class="relative inline-block mx-auto">
-        <img src="images/logo.png" alt="Harbor Glow by Glow Works" class="logo-mark w-full max-w-[260px] sm:max-w-[340px] md:max-w-[400px] mx-auto" />
-      </div>
+      <h1 class="relative inline-block mx-auto">
+        <span class="sr-only">Harbor Glow — Holiday Light Experience at West Harbor, San Pedro</span>
+        <img src="images/logo.png" alt="" aria-hidden="true" fetchpriority="high" class="logo-mark w-full max-w-[260px] sm:max-w-[340px] md:max-w-[400px] mx-auto" />
+      </h1>
 
       <p class="mt-6 text-lg sm:text-2xl text-white/85 font-light max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed">
         A walk-through holiday light experience on the harbor —<br />
