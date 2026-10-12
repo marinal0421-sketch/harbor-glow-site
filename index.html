@@ -2,12 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- ============ Privacy-aware tracking loader (GA4 / Meta Pixel / TikTok Pixel) ============
+       Kept at the very front of <head> on every page. Checks navigator.globalPrivacyControl
+       before loading any ad-tracking pixel. To turn a tool on, paste its ID into the constant
+       below — an empty ID means that tool is skipped entirely (no script, no request). -->
+  <script>
+  (function () {
+    var GA4_MEASUREMENT_ID = '';   // TODO: paste GA4 measurement ID, e.g. 'G-XXXXXXXXXX'
+    var META_PIXEL_ID      = '';   // TODO: paste Meta Pixel ID
+    var TIKTOK_PIXEL_ID    = '';   // TODO: paste TikTok Pixel ID
+
+    var gpc = navigator.globalPrivacyControl === true;
+
+    // Google Analytics 4 — loads normally (even with GPC on) so we can still measure
+    // traffic, but ad-signal sharing is turned off first when GPC is on.
+    if (GA4_MEASUREMENT_ID) {
+      var gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_MEASUREMENT_ID;
+      document.head.appendChild(gaScript);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      if (gpc) {
+        gtag('set', 'allow_google_signals', false);
+        gtag('set', 'allow_ad_personalization_signals', false);
+      }
+      gtag('config', GA4_MEASUREMENT_ID);
+    }
+
+    // Meta Pixel & TikTok Pixel — skipped completely when GPC is on: no script tag is
+    // added and no network request is made, not just hidden after the fact.
+    if (!gpc) {
+      if (META_PIXEL_ID) {
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', META_PIXEL_ID);
+        fbq('track', 'PageView');
+      }
+      if (TIKTOK_PIXEL_ID) {
+        !function (w, d, t) {
+          w.TiktokAnalyticsObject = t; var ttq = w[t] = w[t] || [];
+          ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+          ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } };
+          for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+          ttq.load = function (e) {
+            var r = "https://analytics.tiktok.com/i18n/pixel/events.js";
+            ttq._i = ttq._i || {}; ttq._i[e] = []; ttq._i[e]._u = r;
+            ttq._t = ttq._t || {}; ttq._t[e] = +new Date;
+            var s = d.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = r + "?sdkid=" + e + "&lib=" + t;
+            var a = d.getElementsByTagName("script")[0]; a.parentNode.insertBefore(s, a);
+          };
+          ttq.load(TIKTOK_PIXEL_ID);
+          ttq.page();
+        }(window, document, 'ttq');
+      }
+    }
+  })();
+  </script>
+  <!-- ============ end tracking loader ============ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Harbor Glow — Immersive Holiday Light Experience | West Harbor, San Pedro</title>
-  <meta name="description" content="Harbor Glow by Glow Works — a walk-through holiday light experience on the San Pedro waterfront. Nov 20, 2026 – Jan 3, 2027 at 1332 S Harbor Blvd, San Pedro, CA." />
+  <meta name="description" content="Harbor Glow by Glow Works — a walk-through holiday light experience at West Harbor at Port of Los Angeles. Nov 20, 2026 – Jan 3, 2027 at 1332 S Harbor Blvd, San Pedro, CA 90731." />
 
   <meta property="og:title" content="Harbor Glow — Immersive Holiday Light Experience" />
-  <meta property="og:description" content="A walk-through world of light on the San Pedro waterfront. Nov 20, 2026 – Jan 3, 2027." />
+  <meta property="og:description" content="A walk-through world of light at West Harbor at Port of Los Angeles. Nov 20, 2026 – Jan 3, 2027." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://harborglownights.com" />
 
@@ -71,7 +134,7 @@
       background:
         linear-gradient(180deg, rgba(5,6,26,0.40) 0%, rgba(5,6,26,0.60) 45%, rgba(5,6,26,0.97) 100%),
         radial-gradient(ellipse 80% 60% at 50% 20%, rgba(58,210,255,0.22), transparent 60%),
-        url('images/arch.jpg');
+        url('images/hero_winter.jpg');
       background-size: cover;
       background-position: center 30%;
     }
@@ -92,27 +155,74 @@
 
     .logo-mark { filter: drop-shadow(0 0 14px rgba(245,197,66,0.35)); }
     .tm-mark { text-shadow: 0 0 10px rgba(245,197,66,0.7); }
+
+    .nav-link {
+      position: relative;
+      padding-bottom: 5px;
+      color: rgba(255,255,255,0.85);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, #f5c542, #ffe08a);
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover { color: #f5c542; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.is-active { color: #f5c542; }
+    .nav-link.is-active::after { width: 100%; }
+
+    #glow-particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+    .section-bg-trees {
+      background:
+        linear-gradient(180deg, rgba(5,6,26,0.80) 0%, rgba(5,6,26,0.90) 55%, rgba(5,6,26,0.98) 100%),
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(58,210,255,0.14), transparent 60%),
+        url('images/trees.jpg');
+      background-size: cover;
+      background-position: center 35%;
+      background-attachment: fixed;
+    }
+    .section-bg-whale {
+      background:
+        linear-gradient(180deg, rgba(5,6,26,0.82) 0%, rgba(5,6,26,0.92) 55%, rgba(5,6,26,0.98) 100%),
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(245,197,66,0.10), transparent 60%),
+        url('images/whale.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      background-attachment: fixed;
+    }
+    @media (max-width: 768px) {
+      .section-bg-trees, .section-bg-whale { background-attachment: scroll; }
+    }
+
+    .stat-num { text-shadow: 0 0 16px rgba(245,197,66,0.4); }
   </style>
 </head>
 
 <body class="font-body text-white bg-wash overflow-x-hidden">
 
+  <canvas id="glow-particles" aria-hidden="true"></canvas>
+
   <!-- ============ NAV ============ -->
-  <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-    <nav class="max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 py-3">
-      <a href="#top" class="relative inline-block" aria-label="Harbor Glow home">
-        <img src="images/logo.png" alt="Harbor Glow by Glow Works" class="logo-mark h-9 sm:h-11 w-auto" />
-        <span class="tm-mark absolute -top-1 -right-2.5 text-[10px] sm:text-xs text-gold font-semibold">™</span>
+  <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-gradient-to-b from-midnight/70 via-midnight/30 to-transparent">
+    <nav class="max-w-7xl 2xl:max-w-[1600px] mx-auto grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 py-3 sm:py-4">
+      <a href="#top" class="relative inline-block justify-self-start" aria-label="Harbor Glow home">
+        <img src="images/logo.png" alt="Harbor Glow by Glow Works" class="logo-mark h-12 sm:h-16 w-auto" />
+        <span class="tm-mark absolute -top-1 -right-3 text-xs sm:text-sm text-gold font-semibold">™</span>
       </a>
 
-      <div class="hidden md:flex items-center gap-8 text-sm text-white/80">
-        <a href="#experience" class="hover:text-gold transition-colors">Experience</a>
-        <a href="#gallery" class="hover:text-gold transition-colors">Gallery</a>
-        <a href="#schedule" class="hover:text-gold transition-colors">Dates &amp; Hours</a>
-        <a href="#faq" class="hover:text-gold transition-colors">FAQ</a>
+      <div class="hidden md:flex items-center justify-center gap-10 text-xs sm:text-sm font-semibold uppercase tracking-[0.14em]">
+        <a href="#top" class="nav-link is-active">Home</a>
+        <a href="experience.html" class="nav-link">The Experience</a>
+        <a href="visit.html" class="nav-link">Visit &amp; FAQ</a>
       </div>
 
-      <span class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-sm px-5 sm:px-6 py-2.5 cursor-default select-none">
+      <span class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-sm px-5 sm:px-6 py-2.5 cursor-default select-none justify-self-end">
         Tickets Coming Soon
       </span>
     </nav>
@@ -120,22 +230,18 @@
 
   <!-- ============ HERO ============ -->
   <section id="top" class="hero-bg relative min-h-[100svh] flex items-center justify-center text-center px-6 pt-28 pb-20">
-    <div class="relative z-10 max-w-4xl mx-auto">
-      <p class="uppercase tracking-[0.35em] text-xs sm:text-sm text-electric-soft/90 mb-6 pulse">
-        West Harbor &nbsp;•&nbsp; San Pedro Waterfront
-      </p>
-
+    <div class="relative z-10 max-w-4xl 2xl:max-w-5xl mx-auto">
       <div class="relative inline-block mx-auto">
-        <img src="images/logo.png" alt="Harbor Glow by Glow Works" class="logo-mark w-full max-w-[340px] sm:max-w-[460px] md:max-w-[560px] mx-auto" />
-        <span class="tm-mark absolute top-1 -right-1 sm:top-2 sm:-right-2 text-lg sm:text-2xl text-gold font-semibold">™</span>
+        <img src="images/logo.png" alt="Harbor Glow by Glow Works" class="logo-mark w-full max-w-[260px] sm:max-w-[340px] md:max-w-[400px] mx-auto" />
       </div>
 
-      <p class="mt-8 text-lg sm:text-2xl text-white/85 font-light max-w-2xl mx-auto leading-relaxed">
-        Step into a walk-through world of light on the harbor. Millions of lights, towering crystal groves,
-        and holiday magic where the water meets the glow.
+      <p class="mt-6 text-lg sm:text-2xl text-white/85 font-light max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed">
+        A walk-through holiday light experience on the harbor —<br />
+        two glowing worlds, seventeen scenes,<br />
+        where the harbor meets the glow.
       </p>
 
-      <div class="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-sm sm:text-base">
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-sm sm:text-base">
         <span class="rounded-full border border-electric/40 bg-electric/10 px-5 py-2 text-electric-soft glow-blue">
           Nov 20, 2026 – Jan 3, 2027
         </span>
@@ -143,7 +249,7 @@
           Open Nightly
         </span>
         <span class="rounded-full border border-white/20 bg-white/5 px-5 py-2 text-white/80">
-          1332 S Harbor Blvd, San Pedro, CA
+          1332 S Harbor Blvd, San Pedro, CA 90731
         </span>
       </div>
 
@@ -151,10 +257,29 @@
         <span class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-lg sm:text-xl px-12 py-4 cursor-default select-none inline-block">
           Tickets Coming Soon
         </span>
-        <a href="#experience"
+        <a href="experience.html"
            class="rounded-full border border-white/25 text-white/90 font-medium text-base px-8 py-4 hover:border-electric hover:text-electric-soft transition-all duration-300">
           Explore the Experience
         </a>
+      </div>
+
+      <div class="mt-10 max-w-md mx-auto">
+        <p class="text-sm text-white/70 mb-3">Be the first to know when tickets go on sale.</p>
+        <form class="subscribe-form flex flex-col sm:flex-row gap-3"
+              action="https://harborglownights.us14.list-manage.com/subscribe/post?u=16c7dc0f6b50533cea5598927&amp;id=2fde17af61&amp;f_id=009f96e0f0"
+              method="post" target="_blank" novalidate>
+          <input type="email" name="EMAIL" required placeholder="Your email address"
+                 class="subscribe-email flex-1 rounded-full border border-white/20 bg-white/10 px-5 py-3 text-white placeholder-white/40 text-sm focus:outline-none focus:border-electric" />
+          <div aria-hidden="true" style="position:absolute; left:-5000px;">
+            <input type="text" name="b_16c7dc0f6b50533cea5598927_2fde17af61" tabindex="-1" value="" />
+          </div>
+          <button type="submit" name="subscribe"
+                  class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-sm px-6 py-3 whitespace-nowrap">
+            Notify Me
+          </button>
+        </form>
+        <p class="subscribe-msg hidden mt-3 text-xs text-electric-soft"></p>
+        <p class="mt-2 text-[11px] text-white/35 leading-relaxed">By subscribing, you agree to receive marketing emails from Harbor Glow. Unsubscribe anytime. See our <a href="privacy/" class="underline hover:text-white/60">Privacy Policy</a>.</p>
       </div>
 
       <div class="mt-14 inline-flex items-center gap-4 sm:gap-8" aria-label="Countdown to opening night">
@@ -177,101 +302,121 @@
           <div id="cd-secs" class="text-2xl sm:text-4xl font-display font-bold text-gold glow-text tabular-nums">--</div>
           <div class="text-[10px] uppercase tracking-widest text-white/55 mt-1">Sec</div>
         </div>
-        <span class="hidden sm:inline text-xs text-white/50 ml-3 max-w-[8rem] text-left">until opening night</span>
+        <span class="hidden sm:inline text-xs text-white/50 ml-3 max-w-[8rem] text-left">until grand opening</span>
       </div>
     </div>
 
-    <a href="#experience" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-sm animate-bounce">↓</a>
+    <a href="#why" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/40 text-sm animate-bounce">↓</a>
   </section>
 
   <!-- ============ MARQUEE STRIP ============ -->
   <div class="relative z-10 border-y border-white/10 bg-midnight/60 py-4 overflow-hidden">
     <div class="marquee-track flex whitespace-nowrap gap-12 text-sm uppercase tracking-[0.25em] text-white/50 w-max">
-      <span>✦ The Crystal Ice Garden</span><span>✦ Winter Crystal Grove</span><span>✦ The Enchanted Reef</span><span>✦ The Aurora Arch</span><span>✦ Meet Frost &amp; Chip</span><span>✦ Holiday Market</span><span>✦ Waterfront Views</span>
-      <span>✦ The Crystal Ice Garden</span><span>✦ Winter Crystal Grove</span><span>✦ The Enchanted Reef</span><span>✦ The Aurora Arch</span><span>✦ Meet Frost &amp; Chip</span><span>✦ Holiday Market</span><span>✦ Waterfront Views</span>
+      <span>✦ Ice &amp; Snow Gate</span><span>✦ Penguin Snow Castle</span><span>✦ Christmas Wonderland</span><span>✦ Crystal Ice Garden</span><span>✦ Ice &amp; Snow Forest</span><span>✦ Polar Park</span><span>✦ Jellyfish Gate</span><span>✦ Ocean Exploration</span><span>✦ Coral Secret Realm</span><span>✦ Deep Sea Encounter</span>
+      <span>✦ Ice &amp; Snow Gate</span><span>✦ Penguin Snow Castle</span><span>✦ Christmas Wonderland</span><span>✦ Crystal Ice Garden</span><span>✦ Ice &amp; Snow Forest</span><span>✦ Polar Park</span><span>✦ Jellyfish Gate</span><span>✦ Ocean Exploration</span><span>✦ Coral Secret Realm</span><span>✦ Deep Sea Encounter</span>
     </div>
   </div>
 
-  <!-- ============ EXPERIENCE / HIGHLIGHTS ============ -->
-  <section id="experience" class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 py-24">
+  <!-- ============ STATS STRIP ============ -->
+  <div class="relative z-10 max-w-6xl 2xl:max-w-[1400px] mx-auto px-5 sm:px-8 py-12 sm:py-14">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-4 text-center">
+      <div class="sm:border-r sm:border-white/10">
+        <div class="stat-num font-display text-3xl sm:text-4xl font-bold text-gold">45</div>
+        <div class="mt-1 text-[11px] sm:text-xs uppercase tracking-widest text-white/55">Nights of Glow</div>
+      </div>
+      <div>
+        <div class="stat-num font-display text-3xl sm:text-4xl font-bold text-gold">80K+</div>
+        <div class="mt-1 text-[11px] sm:text-xs uppercase tracking-widest text-white/55">Sqft Illuminated</div>
+      </div>
+      <div class="sm:border-r sm:border-white/10">
+        <div class="stat-num font-display text-3xl sm:text-4xl font-bold text-gold">17</div>
+        <div class="mt-1 text-[11px] sm:text-xs uppercase tracking-widest text-white/55">Magical Scenes</div>
+      </div>
+      <div>
+        <div class="stat-num font-display text-3xl sm:text-4xl font-bold text-gold">2</div>
+        <div class="mt-1 text-[11px] sm:text-xs uppercase tracking-widest text-white/55">Themed Worlds</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WHY HARBOR GLOW ============ -->
+  <section id="why" class="relative z-10 max-w-6xl 2xl:max-w-[1400px] mx-auto px-5 sm:px-8 py-24">
     <div class="text-center max-w-2xl mx-auto">
-      <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">The Experience</p>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold glow-text">One Night. Endless Light.</h2>
+      <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">Why Guests Will Come</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold glow-text">A Night Out, Reimagined.</h2>
       <p class="mt-5 text-white/70 leading-relaxed">
-        A self-guided journey through three glowing worlds built along the water's edge — from crystal blooms
-        to a reef of bioluminescent light.
+        A festive night out where the LA Waterfront becomes part of the holiday experience.
       </p>
     </div>
 
-    <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-      <article class="card-glow rounded-3xl border border-white/10 bg-white/[0.03] overflow-hidden">
-        <div class="h-52 bg-cover bg-center" style="background-image:linear-gradient(180deg,rgba(5,6,26,0.05),rgba(5,6,26,0.75)),url('images/flowers.jpg');"></div>
-        <div class="p-7">
-          <h3 class="font-display text-2xl font-semibold text-gold-soft">The Crystal Ice Garden</h3>
-          <p class="mt-3 text-white/70 text-sm leading-relaxed">
-            Towering illuminated ice-blooms rise overhead in a hand-built garden of light. Every petal glows,
-            every path is a new photo waiting to happen.
-          </p>
-        </div>
-      </article>
-
-      <article class="card-glow rounded-3xl border border-white/10 bg-white/[0.03] overflow-hidden">
-        <div class="h-52 bg-cover bg-center" style="background-image:linear-gradient(180deg,rgba(5,6,26,0.05),rgba(5,6,26,0.75)),url('images/trees.jpg');"></div>
-        <div class="p-7">
-          <h3 class="font-display text-2xl font-semibold text-gold-soft">Winter Crystal Grove</h3>
-          <p class="mt-3 text-white/70 text-sm leading-relaxed">
-            Wander a forest of towering crystal trees under a canopy of stars, anchored by a glowing ice-heart
-            made for the perfect holiday portrait.
-          </p>
-        </div>
-      </article>
-
-      <article class="card-glow rounded-3xl border border-white/10 bg-white/[0.03] overflow-hidden">
-        <div class="h-52 bg-cover bg-center" style="background-image:linear-gradient(180deg,rgba(5,6,26,0.05),rgba(5,6,26,0.75)),url('images/jelly_dark.jpg');"></div>
-        <div class="p-7">
-          <h3 class="font-display text-2xl font-semibold text-gold-soft">The Enchanted Reef</h3>
-          <p class="mt-3 text-white/70 text-sm leading-relaxed">
-            Drift beneath a sky of glowing jellyfish and coral in an otherworldly underwater walk — a reef of
-            light suspended over the harbor promenade.
-          </p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============ GALLERY ============ -->
-  <section id="gallery" class="relative z-10 border-y border-white/10 bg-midnight/40">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-24">
-      <div class="text-center max-w-2xl mx-auto">
-        <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">A Glimpse of the Glow</p>
-        <h2 class="font-display text-4xl sm:text-5xl font-bold glow-blue text-electric-soft">More to Discover</h2>
-        <p class="mt-5 text-white/70 leading-relaxed">Concept previews from the installations taking shape for opening night.</p>
+    <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
+        <span class="font-display text-sm text-gold/70">01</span>
+        <h3 class="mt-2 font-display text-xl font-semibold text-gold-soft">An Immersive Holiday Escape</h3>
+        <p class="mt-3 text-white/70 text-sm leading-relaxed">
+          Guests walk straight through glowing, large-scale light environments built for wandering and photos.
+        </p>
       </div>
-
-      <div class="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <img src="images/arch.jpg" alt="The Aurora Arch — glowing crystal entrance archway" class="w-full h-44 sm:h-56 object-cover" loading="lazy" />
-          <figcaption class="px-4 py-3 text-sm text-white/75">The Aurora Arch</figcaption>
-        </figure>
-        <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <img src="images/snowmen.jpg" alt="Frost and Chip, the Harbor Glow snow crew, beside a crystal tree" class="w-full h-44 sm:h-56 object-cover" loading="lazy" />
-          <figcaption class="px-4 py-3 text-sm text-white/75">Meet Frost &amp; Chip</figcaption>
-        </figure>
-        <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <img src="images/jelly_purple.jpg" alt="Glowing coral and jellyfish installation" class="w-full h-44 sm:h-56 object-cover" loading="lazy" />
-          <figcaption class="px-4 py-3 text-sm text-white/75">Coral Bloom Passage</figcaption>
-        </figure>
-        <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <img src="images/whale.jpg" alt="Winged whale light sculpture over the harbor" class="w-full h-44 sm:h-56 object-cover" loading="lazy" />
-          <figcaption class="px-4 py-3 text-sm text-white/75">The Harbor Guardian</figcaption>
-        </figure>
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
+        <span class="font-display text-sm text-gold/70">02</span>
+        <h3 class="mt-2 font-display text-xl font-semibold text-gold-soft">Two Worlds, One Walk</h3>
+        <p class="mt-3 text-white/70 text-sm leading-relaxed">
+          The experience moves from a luminous winter landscape into a bioluminescent underwater world.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
+        <span class="font-display text-sm text-gold/70">03</span>
+        <h3 class="mt-2 font-display text-xl font-semibold text-gold-soft">The Waterfront After Dark</h3>
+        <p class="mt-3 text-white/70 text-sm leading-relaxed">
+          The harbor adds real water, reflections and a strong sense of place.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
+        <span class="font-display text-sm text-gold/70">04</span>
+        <h3 class="mt-2 font-display text-xl font-semibold text-gold-soft">Family Fun and Photo Moments</h3>
+        <p class="mt-3 text-white/70 text-sm leading-relaxed">
+          Easy to enjoy across ages, with large scenes for shared memories and social content.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- ============ SCHEDULE ============ -->
-  <section id="schedule" class="relative z-10">
-    <div class="max-w-3xl mx-auto px-5 sm:px-8 py-24">
+  <!-- ============ EXPERIENCE TEASER ============ -->
+  <section id="experience" class="relative z-10 border-y border-white/10 bg-midnight/40">
+    <div class="max-w-6xl 2xl:max-w-[1400px] mx-auto px-5 sm:px-8 py-24 text-center">
+      <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">The Experience</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold glow-blue text-electric-soft">Winter Dreamscape to World Beneath the Waves.</h2>
+      <p class="mt-5 text-white/70 leading-relaxed max-w-2xl mx-auto">
+        A self-guided journey through two illuminated worlds built along the water's edge — seventeen
+        scenes, from a crystal winter dreamscape to a bioluminescent world beneath the waves.
+      </p>
+
+      <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 text-left">
+        <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
+          <img src="images/snowmen.jpg" alt="Christmas Wonderland — Santa emerging from a chimney with a gingerbread man and snowman family" class="w-full h-56 object-cover" loading="lazy" />
+          <figcaption class="px-5 py-4 text-sm text-white/75">Christmas Wonderland</figcaption>
+        </figure>
+        <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
+          <img src="images/flowers.jpg" alt="Crystal Ice Garden — towering illuminated ice blooms" class="w-full h-56 object-cover" loading="lazy" />
+          <figcaption class="px-5 py-4 text-sm text-white/75">Crystal Ice Garden</figcaption>
+        </figure>
+        <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
+          <img src="images/whale.jpg" alt="Deep Sea Encounter — winged whale light sculpture" class="w-full h-56 object-cover" loading="lazy" />
+          <figcaption class="px-5 py-4 text-sm text-white/75">Deep Sea Encounter</figcaption>
+        </figure>
+      </div>
+
+      <a href="experience.html"
+         class="mt-12 inline-block rounded-full border border-white/25 text-white/90 font-medium text-base px-8 py-4 hover:border-electric hover:text-electric-soft transition-all duration-300">
+        Explore All the Scenes →
+      </a>
+      <p class="mt-5 text-xs text-white/35 italic">Concept imagery — design concept, final execution may vary.</p>
+    </div>
+  </section>
+
+  <!-- ============ PLAN YOUR VISIT ============ -->
+  <section id="visit-teaser" class="section-bg-trees relative z-10">
+    <div class="max-w-3xl 2xl:max-w-4xl mx-auto px-5 sm:px-8 py-24">
       <div class="text-center max-w-2xl mx-auto">
         <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">Plan Your Night</p>
         <h2 class="font-display text-4xl sm:text-5xl font-bold glow-blue text-electric-soft">Dates &amp; Hours</h2>
@@ -280,7 +425,7 @@
         </p>
       </div>
 
-      <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] divide-y divide-white/10 overflow-hidden">
+      <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.06] backdrop-blur-sm divide-y divide-white/10 overflow-hidden">
         <div class="flex items-center justify-between px-6 sm:px-8 py-6">
           <span class="text-white/80 font-medium">Sunday – Thursday</span>
           <span class="text-gold-soft font-semibold">5:30 PM – 9:30 PM</span>
@@ -289,78 +434,32 @@
           <span class="text-white/80 font-medium">Friday, Saturday &amp; Holidays</span>
           <span class="text-gold-soft font-semibold">5:00 PM – 10:30 PM</span>
         </div>
+        <div class="flex items-center justify-between px-6 sm:px-8 py-6">
+          <span class="text-white/80 font-medium">Where</span>
+          <span class="text-right">
+            <span class="block text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-electric-soft/80 font-semibold mb-1">West Harbor at Port of Los Angeles</span>
+            <span class="block text-gold-soft font-semibold">1332 S Harbor Blvd, San Pedro, CA 90731</span>
+          </span>
+        </div>
       </div>
       <p class="mt-4 text-center text-xs text-white/50">Open daily, including all holidays. Last entry is one hour before close.</p>
+      <p class="mt-2 text-center text-xs text-white/35">Dates, hours, programming and operating details are subject to change.</p>
 
-      <div class="mt-10 text-center">
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
         <span class="btn-glow inline-block rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold px-10 py-3.5 cursor-default select-none">
           Tickets Coming Soon
         </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ FAQ ============ -->
-  <section id="faq" class="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 py-24">
-    <div class="text-center">
-      <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">Good to Know</p>
-      <h2 class="font-display text-4xl sm:text-5xl font-bold glow-text">Frequently Asked</h2>
-    </div>
-
-    <div class="mt-12 space-y-4" id="faq-list">
-      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.03]" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">Where do I park?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
-        </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Harbor Glow is located at 1332 South Harbor Blvd, San Pedro, CA. On-site and nearby waterfront parking is available — we recommend arriving 30 minutes before your entry time. Parking details and pre-pay options will be posted once tickets go on sale.</p></div>
-      </div>
-
-      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.03]" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">What happens if it rains?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
-        </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Harbor Glow is a mostly outdoor, rain-or-shine experience — the lights look magical in a light mist. If severe weather forces a closure, your tickets will be honored on another available night or refunded per our weather policy, which will be posted once tickets go on sale.</p></div>
-      </div>
-
-      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.03]" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">Do children need a ticket?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
-        </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Children 2 and under are free and do not need a ticket. Kids 3 and up will require a child ticket at a reduced price, with family 4-packs offering the best value — full pricing goes live with tickets.</p></div>
-      </div>
-
-      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.03]" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">How long does the experience take?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
-        </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Most guests move through the Ice Garden, the Crystal Grove, and the Enchanted Reef in about 40 minutes to an hour. There's no rush — once you're in, you're welcome to linger until closing.</p></div>
-      </div>
-
-      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.03]" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">Is it stroller and wheelchair accessible?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
-        </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Yes. The main light path is flat and fully accessible for strollers and wheelchairs. Accessible parking and restrooms are available on site.</p></div>
-      </div>
-
-      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.03]" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">Can I bring my dog?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
-        </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Only trained service animals are permitted at Harbor Glow. We're unable to accommodate other pets, including emotional support animals, given the density of the light installations and crowd flow along the path.</p></div>
+        <a href="visit.html"
+           class="rounded-full border border-white/25 text-white/90 font-medium px-8 py-3.5 hover:border-electric hover:text-electric-soft transition-all duration-300">
+          Parking, FAQ &amp; More →
+        </a>
       </div>
     </div>
   </section>
 
   <!-- ============ FINAL CTA BAND ============ -->
   <section class="relative z-10 overflow-hidden">
-    <div class="max-w-5xl mx-auto px-6 py-24 text-center">
+    <div class="max-w-5xl 2xl:max-w-6xl mx-auto px-6 py-24 text-center">
       <div class="rounded-[2.5rem] border border-gold/20 bg-gradient-to-br from-grape/60 to-midnight-2/60 px-6 sm:px-16 py-16"
            style="box-shadow:0 0 80px -20px rgba(245,197,66,0.35);">
         <h2 class="font-display text-4xl sm:text-6xl font-extrabold glow-text">The harbor is glowing.</h2>
@@ -374,50 +473,84 @@
 
   <!-- ============ FOOTER ============ -->
   <footer class="relative z-10 border-t border-white/10 bg-midnight/70">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14">
-      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
+    <div class="max-w-7xl 2xl:max-w-[1600px] mx-auto px-5 sm:px-8 py-14">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1.1fr_1.4fr] gap-10 md:gap-8">
+
+        <!-- Brand + newsletter -->
         <div>
           <div class="relative inline-block">
             <img src="images/logo.png" alt="Harbor Glow by Glow Works" class="logo-mark h-10 w-auto" />
             <span class="tm-mark absolute -top-1 -right-2.5 text-[10px] text-gold font-semibold">™</span>
           </div>
-          <p class="mt-4 text-white/60 text-sm max-w-xs">1332 South Harbor Blvd<br/>San Pedro, CA<br/>An immersive holiday light experience on the waterfront.</p>
+          <p class="mt-4 text-white/60 text-sm max-w-xs">1332 South Harbor Blvd<br/>San Pedro, CA 90731<br/>An immersive holiday light experience on the waterfront.</p>
+          <p class="mt-3 text-white/35 text-xs">Produced by Glow Works Inc.</p>
+
+          <div class="mt-6">
+            <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Stay in the Loop</p>
+            <form class="subscribe-form flex flex-col gap-2 max-w-[220px]"
+                  action="https://harborglownights.us14.list-manage.com/subscribe/post?u=16c7dc0f6b50533cea5598927&amp;id=2fde17af61&amp;f_id=009f96e0f0"
+                  method="post" target="_blank" novalidate>
+              <input type="email" name="EMAIL" required placeholder="Your email"
+                     class="subscribe-email rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-white/40 text-xs focus:outline-none focus:border-electric" />
+              <div aria-hidden="true" style="position:absolute; left:-5000px;">
+                <input type="text" name="b_16c7dc0f6b50533cea5598927_2fde17af61" tabindex="-1" value="" />
+              </div>
+              <button type="submit" name="subscribe"
+                      class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-xs px-4 py-2">
+                Be the First to Know
+              </button>
+            </form>
+            <p class="subscribe-msg hidden mt-2 text-[11px] text-electric-soft"></p>
+            <p class="mt-2 text-[10px] text-white/30 leading-relaxed max-w-[220px]">By subscribing, you agree to receive marketing emails from Harbor Glow. Unsubscribe anytime. See our <a href="privacy/" class="underline hover:text-white/55">Privacy Policy</a>.</p>
+          </div>
         </div>
 
-        <div class="flex flex-wrap gap-x-12 gap-y-6 text-sm">
-          <div>
-            <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Visit</p>
-            <ul class="space-y-2 text-white/75">
-              <li><a href="#experience" class="hover:text-gold transition-colors">Experience</a></li>
-              <li><a href="#gallery" class="hover:text-gold transition-colors">Gallery</a></li>
-              <li><a href="#schedule" class="hover:text-gold transition-colors">Dates &amp; Hours</a></li>
-              <li><a href="#faq" class="hover:text-gold transition-colors">FAQ</a></li>
-            </ul>
-          </div>
-          <div>
-            <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Legal</p>
-            <ul class="space-y-2 text-white/40">
-              <li><span class="cursor-default select-none">Privacy Policy</span></li>
-              <li><span class="cursor-default select-none">Terms of Use</span></li>
-              <li><span class="cursor-default select-none">Refund &amp; Weather Policy</span></li>
-            </ul>
-            <p class="mt-2 text-[11px] text-white/30 italic">Coming soon</p>
-          </div>
-          <div>
-            <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Connect</p>
-            <ul class="space-y-2 text-white/75">
-              <li><a href="https://www.instagram.com/harborglownights" class="hover:text-gold transition-colors">Instagram</a></li>
-              <li><a href="#" class="hover:text-gold transition-colors">Facebook</a></li>
-              <li><a href="mailto:info@harborglownights.com" class="hover:text-gold transition-colors">Contact Us</a></li>
-            </ul>
-          </div>
+        <!-- Visit -->
+        <div>
+          <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Visit</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="experience.html" class="text-white/75 hover:text-gold transition-colors">The Experience</a></li>
+            <li><a href="visit.html#schedule" class="text-white/75 hover:text-gold transition-colors">Dates &amp; Hours</a></li>
+            <li><a href="visit.html#getting-here" class="text-white/75 hover:text-gold transition-colors">Location &amp; Parking</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Support</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="visit.html#faq" class="text-white/75 hover:text-gold transition-colors">FAQ</a></li>
+            <li><span class="cursor-default select-none text-white/40">Reschedule / Ticket Portal <span class="text-white/25 italic">(coming soon)</span></span></li>
+            <li><a href="mailto:info@harborglownights.com" class="text-white/75 hover:text-gold transition-colors">Contact Us</a></li>
+          </ul>
+          <p class="mt-3 text-[11px] text-white/30 leading-relaxed">For complete ticket policies, see our <a href="terms/" class="underline hover:text-white/55">Ticketing Terms</a> once published.</p>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Legal</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="privacy/" class="text-white/75 hover:text-gold transition-colors">Privacy Policy</a></li>
+            <li><a href="terms/" class="text-white/75 hover:text-gold transition-colors">Terms of Use</a></li>
+            <li><span class="cursor-default select-none text-white/40">Ticketing Terms &amp; Conditions <span class="text-white/25 italic">(coming soon)</span></span></li>
+            <li><span class="cursor-default select-none text-white/40">Waiver &amp; Release <span class="text-white/25 italic">(coming soon)</span></span></li>
+            <li><a href="privacy-request/" class="text-white/75 hover:text-gold transition-colors">Do Not Sell or Share My Personal Information</a></li>
+          </ul>
         </div>
       </div>
 
-      <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/45">
+      <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5 text-xs text-white/45">
         <p>&copy; <span id="year"></span> Glow Works Inc. All rights reserved. Harbor Glow™ is a trademark of Glow Works Inc.</p>
-        <span class="text-gold font-medium">Tickets Coming Soon</span>
+        <div class="flex items-center gap-4 text-white/25">
+          <span class="cursor-default" title="Instagram — coming soon" aria-label="Instagram (coming soon)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span class="cursor-default" title="Facebook — coming soon" aria-label="Facebook (coming soon)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14 9.5V8c0-.6.4-1 1-1h1.5V4H14c-2.2 0-4 1.8-4 4v1.5H8V12h2v8h3v-8h2.2l.4-2.5H13V9.5z"/></svg>
+          </span>
+        </div>
       </div>
+      <p class="mt-4 text-[11px] text-white/30 italic">Images shown throughout this site are concept imagery — design concept, final execution may vary. Dates, hours, programming and operating details are subject to change.</p>
     </div>
   </footer>
 
@@ -428,6 +561,25 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Subscribe forms — submit for real to Mailchimp (target="_blank" opens its
+    // response in a new tab) while showing an inline confirmation here. Fields are
+    // NOT disabled synchronously on submit — a disabled field is left out of the
+    // submitted form data, which would silently drop the email address.
+    document.querySelectorAll('.subscribe-form').forEach((form) => {
+      form.addEventListener('submit', () => {
+        const msg = form.querySelector('.subscribe-msg');
+        const input = form.querySelector('.subscribe-email');
+        const button = form.querySelector('button');
+        msg.textContent = "Thanks — we'll email you the moment tickets go live.";
+        msg.classList.remove('hidden');
+        setTimeout(() => {
+          input.disabled = true;
+          button.disabled = true;
+          button.classList.add('opacity-60', 'cursor-default');
+        }, 300);
+      });
+    });
 
     const nav = document.getElementById('nav');
     function onScroll() {
@@ -455,14 +607,72 @@
     }
     tick(); setInterval(tick, 1000);
 
-    document.querySelectorAll('.faq-trigger').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isOpen = item.getAttribute('open-state') === 'true';
-        document.querySelectorAll('.faq-item').forEach((i) => i.setAttribute('open-state', 'false'));
-        item.setAttribute('open-state', isOpen ? 'false' : 'true');
-      });
-    });
+    // Ambient drifting light particles
+    (function () {
+      const canvas = document.getElementById('glow-particles');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let w, h, dpr;
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = canvas.clientWidth = window.innerWidth;
+        h = canvas.clientHeight = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const colors = ['245,197,66', '255,224,138', '142,233,255'];
+      const count = window.innerWidth < 640 ? 28 : 50;
+      const particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.6 + Math.random() * 1.8,
+        speed: 0.12 + Math.random() * 0.3,
+        drift: (Math.random() - 0.5) * 0.25,
+        sway: Math.random() * Math.PI * 2,
+        swaySpeed: 0.002 + Math.random() * 0.004,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: 0.25 + Math.random() * 0.45,
+      }));
+
+      if (reduceMotion) {
+        // Draw one static frame only — no animation for reduced-motion users.
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${p.color},${p.alpha * 0.5})`;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        return;
+      }
+
+      function frame() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          p.sway += p.swaySpeed;
+          p.y -= p.speed;
+          p.x += p.drift + Math.sin(p.sway) * 0.15;
+          if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+          ctx.shadowColor = `rgba(${p.color},${p.alpha})`;
+          ctx.shadowBlur = 4;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
   </script>
 </body>
 </html>
