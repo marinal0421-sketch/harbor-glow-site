@@ -8,7 +8,7 @@
        below — an empty ID means that tool is skipped entirely (no script, no request). -->
   <script>
   (function () {
-    var GA4_MEASUREMENT_ID = '';   // TODO: paste GA4 measurement ID, e.g. 'G-XXXXXXXXXX'
+    var GA4_MEASUREMENT_ID = 'G-J6FZ27VS8N';   // Harbor Glow GA4 property
     var META_PIXEL_ID      = '';   // TODO: paste Meta Pixel ID
     var TIKTOK_PIXEL_ID    = '';   // TODO: paste TikTok Pixel ID
 
@@ -30,6 +30,29 @@
         gtag('set', 'allow_ad_personalization_signals', false);
       }
       gtag('config', GA4_MEASUREMENT_ID);
+
+      // Conversion events (mark both as Key events in GA4 Admin → Events once they appear).
+      // sign_up: fires when any Mailchimp subscribe form is submitted (only valid emails get this far).
+      document.addEventListener('submit', function (e) {
+        var form = e.target && e.target.closest ? e.target.closest('.subscribe-form') : null;
+        if (!form) return;
+        gtag('event', 'sign_up', {
+          method: 'mailchimp',
+          form_location: form.closest('footer') ? 'footer' : 'page',
+          transport_type: 'beacon'
+        });
+      }, true);
+      // ticket_click: fires on any click to the ticketing site, so it starts working
+      // automatically once the "Tickets Coming Soon" buttons become real links.
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a || a.hostname !== 'tickets.harborglownights.com') return;
+        gtag('event', 'ticket_click', {
+          link_url: a.href,
+          link_text: (a.textContent || '').trim().slice(0, 100),
+          transport_type: 'beacon'
+        });
+      }, true);
     }
 
     // Meta Pixel & TikTok Pixel — skipped completely when GPC is on: no script tag is
@@ -353,7 +376,7 @@
     // submitted form data, which would silently drop the email address.
     document.querySelectorAll('.subscribe-form').forEach((form) => {
       form.addEventListener('submit', () => {
-        const msg = form.querySelector('.subscribe-msg');
+        const msg = form.querySelector('.subscribe-msg') || form.parentElement.querySelector('.subscribe-msg');
         const input = form.querySelector('.subscribe-email');
         const button = form.querySelector('button');
         msg.textContent = "Thanks — we'll email you the moment tickets go live.";
