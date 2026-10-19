@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ============ Privacy-aware tracking loader (GA4 / Meta Pixel / TikTok Pixel) ============
+       Kept at the very front of <head> on every page. Checks navigator.globalPrivacyControl
+       before loading any ad-tracking pixel. To turn a tool on, paste its ID into the constant
+       below — an empty ID means that tool is skipped entirely (no script, no request). -->
+  <script>
+  (function () {
+    var GA4_MEASUREMENT_ID = 'G-J6FZ27VS8N';   // Harbor Glow GA4 property
+    var META_PIXEL_ID      = '';   // TODO: paste Meta Pixel ID
+    var TIKTOK_PIXEL_ID    = '';   // TODO: paste TikTok Pixel ID
+
+    var gpc = navigator.globalPrivacyControl === true;
+
+    // Google Analytics 4 — loads normally (even with GPC on) so we can still measure
+    // traffic, but ad-signal sharing is turned off first when GPC is on.
+    if (GA4_MEASUREMENT_ID) {
+      var gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_MEASUREMENT_ID;
+      document.head.appendChild(gaScript);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      if (gpc) {
+        gtag('set', 'allow_google_signals', false);
+        gtag('set', 'allow_ad_personalization_signals', false);
+      }
+      gtag('config', GA4_MEASUREMENT_ID);
+
+      // Conversion events (mark both as Key events in GA4 Admin → Events once they appear).
+      // sign_up: fires when any Mailchimp subscribe form is submitted (only valid emails get this far).
+      document.addEventListener('submit', function (e) {
+        var form = e.target && e.target.closest ? e.target.closest('.subscribe-form') : null;
+        if (!form) return;
+        gtag('event', 'sign_up', {
+          method: 'mailchimp',
+          form_location: form.closest('footer') ? 'footer' : 'page',
+          transport_type: 'beacon'
+        });
+      }, true);
+      // ticket_click: fires on any click to the ticketing site, so it starts working
+      // automatically once the "Tickets Coming Soon" buttons become real links.
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a || a.hostname !== 'tickets.harborglownights.com') return;
+        gtag('event', 'ticket_click', {
+          link_url: a.href,
+          link_text: (a.textContent || '').trim().slice(0, 100),
+          transport_type: 'beacon'
+        });
+      }, true);
+    }
+
+    // Meta Pixel & TikTok Pixel — skipped completely when GPC is on: no script tag is
+    // added and no network request is made, not just hidden after the fact.
+    if (!gpc) {
+      if (META_PIXEL_ID) {
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', META_PIXEL_ID);
+        fbq('track', 'PageView');
+      }
+      if (TIKTOK_PIXEL_ID) {
+        !function (w, d, t) {
+          w.TiktokAnalyticsObject = t; var ttq = w[t] = w[t] || [];
+          ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];
+          ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } };
+          for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+          ttq.load = function (e) {
+            var r = "https://analytics.tiktok.com/i18n/pixel/events.js";
+            ttq._i = ttq._i || {}; ttq._i[e] = []; ttq._i[e]._u = r;
+            ttq._t = ttq._t || {}; ttq._t[e] = +new Date;
+            var s = d.createElement("script"); s.type = "text/javascript"; s.async = true; s.src = r + "?sdkid=" + e + "&lib=" + t;
+            var a = d.getElementsByTagName("script")[0]; a.parentNode.insertBefore(s, a);
+          };
+          ttq.load(TIKTOK_PIXEL_ID);
+          ttq.page();
+        }(window, document, 'ttq');
+      }
+    }
+  })();
+  </script>
+  <!-- ============ end tracking loader ============ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ticketing Terms &amp; Conditions — Harbor Glow</title>
+  <meta name="description" content="Ticketing Terms and Conditions for Harbor Glow, produced by Glow Works Inc. — refunds, date changes, weather, Rain Checks, entry and conduct." />
+  <meta name="robots" content="noindex" />
+
+  <meta property="og:title" content="Ticketing Terms &amp; Conditions — Harbor Glow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://harborglownights.com/ticket-terms" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight: '#05061a',
+            'midnight-2': '#0a0b2e',
+            grape: '#1b0b3f',
+            'grape-2': '#2d0a54',
+            gold: '#f5c542',
+            'gold-soft': '#ffe08a',
+            electric: '#3ad2ff',
+            'electric-soft': '#8ee9ff',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            body: ['Poppins', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../images/favicon-48.png" />
+  <link rel="apple-touch-icon" href="../images/apple-touch-icon.png" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #05061a; }
+
+    .bg-wash {
+      background-image:
+        radial-gradient(ellipse 70% 50% at 15% 0%, rgba(58,210,255,0.10), transparent 60%),
+        radial-gradient(ellipse 70% 50% at 90% 100%, rgba(45,10,84,0.65), transparent 60%),
+        linear-gradient(180deg, #05061a 0%, #0a0b2e 60%, #0b0730 100%);
+    }
+
+    .glow-text { text-shadow: 0 0 18px rgba(245,197,66,0.55), 0 0 42px rgba(245,197,66,0.30); }
+    .glow-blue { text-shadow: 0 0 16px rgba(58,210,255,0.55), 0 0 36px rgba(58,210,255,0.28); }
+
+    .btn-glow {
+      box-shadow: 0 0 22px rgba(245,197,66,0.5), 0 0 60px rgba(245,197,66,0.22), inset 0 0 0 1px rgba(255,255,255,0.15);
+    }
+    .btn-glow:hover { box-shadow: 0 0 32px rgba(245,197,66,0.8), 0 0 95px rgba(245,197,66,0.38), inset 0 0 0 1px rgba(255,255,255,0.25); }
+
+    .logo-mark { filter: drop-shadow(0 0 14px rgba(245,197,66,0.35)); }
+    .tm-mark { text-shadow: 0 0 10px rgba(245,197,66,0.7); }
+
+    .nav-link {
+      position: relative;
+      padding-bottom: 5px;
+      color: rgba(255,255,255,0.85);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: linear-gradient(90deg, #f5c542, #ffe08a);
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover { color: #f5c542; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.is-active { color: #f5c542; }
+    .nav-link.is-active::after { width: 100%; }
+
+    #glow-particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+    .legal-copy h2 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.15rem; color: #8ee9ff; margin-top: 2.25rem; margin-bottom: 0.75rem; }
+    .legal-copy p { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.75; margin-top: 0.9rem; }
+    .legal-copy ul { margin-top: 0.9rem; margin-left: 1.25rem; list-style: disc; color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.75; }
+    .legal-copy li { margin-top: 0.4rem; }
+    .legal-copy strong { color: rgba(255,255,255,0.9); }
+  </style>
+</head>
+
+<body class="font-body text-white bg-wash overflow-x-hidden">
+
+  <canvas id="glow-particles" aria-hidden="true"></canvas>
+
+  <!-- ============ NAV ============ -->
+  <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-midnight/85 backdrop-blur-md border-b border-white/10">
+    <nav class="max-w-7xl 2xl:max-w-[1600px] mx-auto grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 py-3">
+      <a href="../index.html" class="relative inline-block justify-self-start" aria-label="Harbor Glow home">
+        <img src="../images/logo.webp" alt="Harbor Glow by Glow Works" class="logo-mark h-12 sm:h-16 w-auto" />
+        <span class="tm-mark absolute -top-1 -right-3 text-xs sm:text-sm text-gold font-semibold">™</span>
+      </a>
+
+      <div class="hidden md:flex items-center justify-center gap-10 text-xs sm:text-sm font-semibold uppercase tracking-[0.14em]">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../experience.html" class="nav-link">The Experience</a>
+        <a href="../visit.html" class="nav-link">Visit &amp; FAQ</a>
+        <a href="../es/" class="nav-link" hreflang="es" lang="es">Español</a>
+      </div>
+
+      <a href="../index.html#ticket-alerts" class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-sm px-5 sm:px-6 py-2.5 cursor-pointer justify-self-end">
+        Tickets Coming Soon
+      </a>
+    </nav>
+  </header>
+
+  <!-- ============ PAGE CONTENT ============ -->
+  <section class="relative z-10 max-w-3xl mx-auto px-5 sm:px-8 pt-32 pb-24">
+    <a href="../index.html" class="inline-block text-xs text-white/50 hover:text-white/80 mb-6 transition-colors">← Back to Home</a>
+    <p class="uppercase tracking-[0.3em] text-xs sm:text-sm text-electric-soft/90 mb-4">Legal</p>
+    <h1 class="font-display text-3xl sm:text-5xl font-bold glow-text">Ticketing Terms &amp; Conditions</h1>
+    <p class="mt-4 text-white/50 text-sm">Last updated: October 18, 2026</p>
+
+    <div class="legal-copy mt-4">
+      <p><strong>Version 1.0. Effective October 18, 2026.</strong> Glow Works may update these Terms at any time by posting a new version on this page. The version in effect when a ticket is purchased applies to that ticket.</p>
+
+      <h2>1. About these Terms</h2>
+      <p>These Terms apply to every Harbor Glow ticket. By buying, holding or using a ticket, or by entering the Event, the Holder agrees to these Terms, the <a href="../waiver/" class="text-electric-soft underline hover:text-electric">Harbor Glow Liability Waiver and Release</a> (the "Waiver") and our <a href="../privacy/" class="text-electric-soft underline hover:text-electric">Privacy Policy</a>.</p>
+      <ul>
+        <li><strong>"Glow Works"</strong> means Glow Works Inc., a California corporation, and its affiliates, the producer and operator of Harbor Glow™ (the "Event") at West Harbor, San Pedro, California. Glow Works alone operates the Event. Harbor Glow is the Event's name and trademark, not a separate company. The owners and managers of West Harbor are not the Event operator.</li>
+        <li><strong>"Holder"</strong> has the meaning given in the Waiver. It includes the purchaser, anyone who uses a ticket, and any minor attending with them.</li>
+        <li><strong>"Ticket"</strong> includes date tickets and Rain Checks.</li>
+      </ul>
+      <p><strong>Buying for others.</strong> A purchaser who buys tickets for other people confirms that they may accept these Terms and the Waiver on those people's behalf, and agrees to share both documents with them.</p>
+      <p><strong>Order of precedence.</strong> If these Terms and the Waiver conflict on risk, release or disputes, the Waiver controls.</p>
+
+      <h2>2. Tickets, pricing and fees</h2>
+      <p>A ticket is a revocable license for one person to enter the Event at the date and entry time shown. It is not property and has no cash value.</p>
+      <ul>
+        <li><strong>All-in pricing.</strong> Displayed ticket prices include all mandatory fees. Optional add-ons, such as parking, are priced separately and shown before checkout.</li>
+        <li><strong>Prices vary.</strong> Prices vary by date and demand, may be higher on the day of the visit and at the box office, and may change at any time. Glow Works does not adjust prices or refund differences if a price drops after purchase.</li>
+        <li><strong>Ticket types.</strong> Children under 3 enter free but need a free ticket for capacity. Child tickets are for ages 3–12. Senior tickets are for guests 65 and older, and military tickets are for current or former service members. Glow Works may ask for proof of age or eligibility at entry. A guest who cannot show eligibility when asked must pay the difference to the applicable ticket price.</li>
+        <li><strong>Discounts and promo codes.</strong> Only one discount or promo code applies per ticket. Codes cannot be combined, have no cash value and cannot be applied to past purchases.</li>
+        <li><strong>Order limit.</strong> Up to 10 tickets per order. For groups of more than 10, contact info@harborglownights.com.</li>
+        <li><strong>Check your order.</strong> Holders should check the date, entry time and ticket types before paying. Changes after purchase follow Section 4.</li>
+        <li><strong>Lost tickets.</strong> Glow Works can resend tickets to the purchaser's email address.</li>
+        <li><strong>Box office.</strong> On-site purchases are subject to these same Terms.</li>
+      </ul>
+
+      <h2>3. All sales final</h2>
+      <p>All sales are final. Glow Works does not give full or partial refunds for any reason, except as required by law. This includes weather, traffic, illness, late arrival, partial closure of displays or attractions, and removal for conduct.</p>
+      <ul>
+        <li>If the Holder's plans change, the remedy is a date change under Section 4.</li>
+        <li>If Glow Works cancels or closes a night, the remedy is a Rain Check under Section 5, not a refund.</li>
+        <li><strong>Fees on refunds.</strong> If Glow Works makes any refund, whether as an exception or because the law requires it, the fees included in the ticket price are not refunded, unless the law requires otherwise.</li>
+      </ul>
+
+      <h2>4. Date changes</h2>
+      <p>Date changes are free. Holders can change their own date or entry time, as many times as they like, through the self-serve ticket portal linked in their order confirmation email and on harborglownights.com. Changes are subject to availability.</p>
+      <ul>
+        <li><strong>Price difference.</strong> Moving to a higher-priced night means paying the difference. Moving to a lower-priced night does not refund the difference.</li>
+        <li><strong>Cut-off.</strong> Changes close 48 hours before the original entry time. A missed entry time cannot be changed or refunded.</li>
+        <li><strong>Season only.</strong> Tickets are valid for the 2026–27 season only and do not carry over to a later season.</li>
+      </ul>
+
+      <h2>5. Weather, closures and Rain Checks</h2>
+      <p>Harbor Glow is a rain-or-shine outdoor event. Rain, cold, and closure of individual displays, attractions or areas do not qualify for a refund or a Rain Check.</p>
+      <p><strong>Safety closures.</strong> Glow Works may delay, suspend, close early or cancel all or part of any night if Glow Works judges that weather or other conditions make operation unsafe. Examples include high winds, lightning, heavy rain or flooding, official weather warnings, and power or equipment failure.</p>
+      <p><strong>Notice.</strong> Glow Works aims to decide on a full-night cancellation by about 2:00 p.m. Pacific time that day, but may cancel, delay or close later if conditions change suddenly. Glow Works will notify purchasers by email and/or text message and post updates on harborglownights.com and social media. Purchasers must keep their contact details current.</p>
+      <p><strong>When a ticket becomes a Rain Check.</strong> A ticket automatically becomes a Rain Check, with no action needed, if either of these happens:</p>
+      <ul>
+        <li>Glow Works cancels the night before the ticket's entry time; or</li>
+        <li>Glow Works closes the Event within 60 minutes after the start of the ticket's entry time.</li>
+      </ul>
+      <p>If Glow Works closes the Event more than 60 minutes after the start of the entry time, the ticket counts as used and no Rain Check is issued.</p>
+      <p><strong>Using a Rain Check.</strong> Reserve any remaining operating night this season through the ticket portal, subject to availability.</p>
+      <ul>
+        <li>Nights at the same or a lower price are free.</li>
+        <li>For a higher-priced night, pay the difference.</li>
+        <li>The 48-hour change cut-off does not apply to reserving a Rain Check.</li>
+        <li>Once reserved, the Rain Check becomes a regular date ticket under Section 4.</li>
+        <li>If the reserved night is also cancelled, a new Rain Check is issued.</li>
+      </ul>
+      <p>Rain Checks have no cash value, cannot be refunded and expire at the close of the season on January 3, 2027.</p>
+      <p>Glow Works is not responsible for travel, parking, lodging, childcare or other costs caused by a delay, closure or cancellation (see Section 12).</p>
+
+      <h2>6. Entry times, admission and length of stay</h2>
+      <p>Each ticket is for a 30-minute entry window that starts at the time shown on the ticket.</p>
+      <ul>
+        <li><strong>Arriving early.</strong> Arrive no more than 15 minutes before the entry window starts.</li>
+        <li><strong>Grace period.</strong> Holders are admitted up to 30 minutes after the start of their entry window.</li>
+        <li><strong>Late arrivals.</strong> After the grace period, Glow Works may admit Holders in a later entry window if capacity allows. This is not guaranteed. Missed entry times are not refundable and cannot be changed after the fact.</li>
+        <li><strong>Length of stay.</strong> There is no time limit. Holders may stay until that night's closing time. Most visits take about 40–60 minutes.</li>
+        <li><strong>Crowd management.</strong> Glow Works may hold entry, meter guest flow, or close areas temporarily.</li>
+        <li><strong>No re-entry.</strong> Leaving the Event ends the visit.</li>
+        <li><strong>Schedule.</strong> The Event operates nightly from November 20, 2026 to January 3, 2027. Hours are 5:30–9:30 p.m. Sunday through Thursday, and 5:00–10:30 p.m. on Fridays, Saturdays and holidays (Thanksgiving, Christmas Eve, Christmas Day, New Year's Eve and New Year's Day). Glow Works may change operating hours.</li>
+      </ul>
+
+      <h2>7. Ticket transfer</h2>
+      <p>Tickets may be transferred to others. Glow Works has no official resale channel.</p>
+      <ul>
+        <li><strong>Third-party sources.</strong> Tickets bought from anyone other than Glow Works or its box office, including resale sites, marketplaces and social media sellers, are bought at the buyer's own risk. Glow Works does not guarantee that those tickets are valid and will not replace or refund them.</li>
+        <li><strong>Ticket validity.</strong> A ticket admits only the guests and uses it includes. Glow Works is not responsible for duplicated, copied, counterfeit, lost or stolen tickets.</li>
+        <li><strong>Bots.</strong> Using automated software to buy tickets is prohibited.</li>
+        <li><strong>Fraud.</strong> Glow Works may cancel orders placed fraudulently, such as with stolen payment details, and tickets that are counterfeit.</li>
+        <li><strong>Passing on the Terms.</strong> Anyone who transfers a ticket should tell the recipient that these Terms and the Waiver apply. The recipient accepts them by using the ticket.</li>
+      </ul>
+
+      <h2>8. Children, accessibility and service animals</h2>
+      <ul>
+        <li><strong>Supervision.</strong> Guests under 18 must be accompanied by an adult aged 18 or older at all times. The accompanying adult accepts the Waiver on the minor's behalf and is responsible for them.</li>
+        <li><strong>Strollers and wagons.</strong> Strollers and wagons are permitted.</li>
+        <li><strong>Accessibility.</strong> Wheelchairs and mobility devices are welcome. Some surfaces are uneven or may be wet. Guests needing accommodations should contact info@harborglownights.com at least 48 hours before their visit.</li>
+        <li><strong>Light sensitivity.</strong> The Event includes flashing lights, fog and darkness. See the warning in the Waiver.</li>
+        <li><strong>Service animals.</strong> Service animals as defined by the Americans with Disabilities Act are welcome and must stay under the handler's control. Pets and emotional support, comfort or therapy animals are not permitted.</li>
+      </ul>
+
+      <h2>9. Conduct, prohibited items and security</h2>
+      <p>Holders must follow staff instructions and posted rules. Posted rules form part of these Terms.</p>
+      <p><strong>Prohibited items:</strong></p>
+      <ul>
+        <li>Pets (service animals excepted, see Section 8)</li>
+        <li>Alcohol of any kind, illegal drugs and cannabis</li>
+        <li>Weapons, fireworks, laser pointers and hazardous materials</li>
+        <li>Glass containers</li>
+        <li>Drones</li>
+        <li>Tripods, monopods and light stands (see Section 10)</li>
+        <li>Bicycles, scooters, skateboards, hoverboards and skates</li>
+        <li>Amplified speakers</li>
+        <li>Bags larger than 16 x 16 x 8 inches (a standard backpack). Diaper bags and medical bags are allowed. No coolers, suitcases or large luggage.</li>
+        <li>Outside food, except baby food and items needed for medical or dietary reasons</li>
+      </ul>
+      <p><strong>Rules:</strong></p>
+      <ul>
+        <li>No smoking or vaping anywhere at the Event, including cannabis.</li>
+        <li>Stay on marked paths. Do not climb on, touch, move or damage displays.</li>
+        <li>No selling, soliciting or handing out materials without Glow Works' written consent.</li>
+        <li>Bags may be searched at entry. Glow Works may refuse entry to anyone who declines.</li>
+      </ul>
+      <p><strong>Removal.</strong> Glow Works may refuse entry to, or remove, anyone who appears intoxicated, behaves in a disorderly, unsafe or harassing way, damages property, or ignores staff instructions. No refund is given. Holders are responsible for any damage they cause.</p>
+      <p><strong>Personal property.</strong> Glow Works is not responsible for lost, stolen or damaged property. For lost and found, contact info@harborglownights.com.</p>
+
+      <h2>10. Photography rules</h2>
+      <p>Personal photos and video taken with phones or handheld cameras are welcome for non-commercial use.</p>
+      <ul>
+        <li>Tripods, monopods and light stands are not permitted during public hours.</li>
+        <li>Commercial photography or video needs Glow Works' written permission in advance. This includes hired photographers, paid sessions (maternity, family, engagement), content productions and drones. Requests go to info@harborglownights.com.</li>
+        <li>Proposals are welcome. Props, décor or set-ups need Glow Works' approval in advance.</li>
+      </ul>
+      <p><strong>Media consent.</strong> Consent to being photographed and recorded at the Event, and to the use of those images, is covered in the Waiver (Section 4).</p>
+
+      <h2>11. Parking</h2>
+      <p>Parking passes, where offered, are sold separately and are valid only for the date shown. If the ticket bought with a pass becomes a Rain Check or changes date, the pass moves with it.</p>
+      <ul>
+        <li>Parking lots are operated under West Harbor's rules. Vehicles are parked at the owner's risk.</li>
+        <li>Unauthorized or improperly parked vehicles may be towed at the owner's expense.</li>
+      </ul>
+
+      <h2>12. Waiver, force majeure and limitation of liability</h2>
+      <p>Attendance is also subject to the separate <a href="../waiver/" class="text-electric-soft underline hover:text-electric">Harbor Glow Liability Waiver and Release</a>, which the Holder accepts at checkout and again by entering. The Waiver covers assumption of risk, the release of claims against the Released Parties, binding individual arbitration with a class action waiver, and consent to photography and recording. These Terms do not restate it.</p>
+      <p><strong>Force majeure.</strong> Glow Works is not liable for failing to perform, or for delays, caused by events beyond its reasonable control. Examples include severe weather, natural disaster, fire, earthquake, flood, government order, public health emergency, utility or power failure, labor action, civil unrest, terrorism and loss of venue access. The remedy for a cancelled night is a Rain Check under Section 5.</p>
+      <p><strong>Season cancellation.</strong> If Glow Works cancels all remaining nights of the season, Rain Checks cannot be used. In that case Glow Works will refund the face value paid for unused tickets and Rain Checks. Fees are not refunded, unless the law requires otherwise.</p>
+      <p><strong>Limitation of liability.</strong> To the fullest extent permitted by law, for any claim other than personal injury or death, the total liability of Glow Works and the Released Parties (as defined in the Waiver) is limited to the amount the Holder paid for the affected tickets. Glow Works and the Released Parties are not liable for indirect, incidental or consequential losses. These include travel, lodging, parking, childcare and lost time arising from changes, delays, closures or cancellations. Nothing in these Terms limits liability that cannot be limited by law, including liability for fraud, willful injury or gross negligence.</p>
+
+      <h2>13. Disputes, privacy and general terms</h2>
+      <ul>
+        <li><strong>Contact us first.</strong> Holders agree to contact the Harbor Glow customer service team at info@harborglownights.com and allow 30 days for an informal resolution before starting any formal claim.</li>
+        <li><strong>Governing law and arbitration.</strong> California law governs these Terms. Disputes are resolved by individual arbitration as set out in the Waiver.</li>
+        <li><strong>Privacy.</strong> Personal information is handled under our <a href="../privacy/" class="text-electric-soft underline hover:text-electric">Privacy Policy</a>. Glow Works sends transactional messages about the Holder's tickets and weather closures by email and/or text. Marketing messages are sent only to Holders who opt in.</li>
+        <li><strong>Changes.</strong> Glow Works may update these Terms at any time by posting a new version on this page. Updates apply to tickets purchased after they are posted. Posted site rules may be updated at any time.</li>
+        <li><strong>Exceptions.</strong> Glow Works may, at its sole discretion, make exceptions to these Terms. An exception for one Holder does not change these Terms or create any obligation to other Holders.</li>
+        <li><strong>Severability.</strong> If any part of these Terms is found unenforceable, the rest stays in effect.</li>
+        <li><strong>Entire agreement.</strong> These Terms, the Waiver and the Privacy Policy are the entire agreement on tickets. Glow Works' failure to enforce a term is not a waiver of it.</li>
+      </ul>
+
+      <h2>14. Contact us</h2>
+      <p>Glow Works Inc.<br/>2108 N St, Ste N<br/>Sacramento, CA 95816<br/>Email: info@harborglownights.com</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="relative z-10 border-t border-white/10 bg-midnight/70">
+    <div class="max-w-7xl 2xl:max-w-[1600px] mx-auto px-5 sm:px-8 py-14">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1.1fr_1.4fr] gap-10 md:gap-8">
+
+        <!-- Brand + newsletter -->
+        <div>
+          <div class="relative inline-block">
+            <img src="../images/logo.webp" alt="Harbor Glow by Glow Works" class="logo-mark h-10 w-auto" />
+            <span class="tm-mark absolute -top-1 -right-2.5 text-[10px] text-gold font-semibold">™</span>
+          </div>
+          <p class="mt-4 text-white/60 text-sm max-w-xs">1332 South Harbor Blvd<br/>San Pedro, CA 90731<br/>An immersive holiday light experience on the waterfront.</p>
+          <p class="mt-3 text-white/35 text-xs">Produced by Glow Works Inc.</p>
+
+          <div class="mt-6">
+            <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Stay in the Loop</p>
+            <form class="subscribe-form flex flex-col gap-2 max-w-[220px]"
+                  action="https://harborglownights.us14.list-manage.com/subscribe/post?u=16c7dc0f6b50533cea5598927&amp;id=2fde17af61&amp;f_id=009f96e0f0"
+                  method="post" target="_blank" novalidate>
+              <input type="email" name="EMAIL" required placeholder="Your email"
+                     class="subscribe-email rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white placeholder-white/40 text-xs focus:outline-none focus:border-electric" />
+              <div aria-hidden="true" style="position:absolute; left:-5000px;">
+                <input type="text" name="b_16c7dc0f6b50533cea5598927_2fde17af61" tabindex="-1" value="" />
+              </div>
+              <button type="submit" name="subscribe"
+                      class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-xs px-4 py-2">
+                Be the First to Know
+              </button>
+            </form>
+            <p class="subscribe-msg hidden mt-2 text-[11px] text-electric-soft"></p>
+            <p class="mt-2 text-[10px] text-white/30 leading-relaxed max-w-[220px]">By subscribing, you agree to receive marketing emails from Harbor Glow. Unsubscribe anytime. See our <a href="../privacy/" class="underline hover:text-white/55">Privacy Policy</a>.</p>
+          </div>
+        </div>
+
+        <!-- Visit -->
+        <div>
+          <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Visit</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="../experience.html" class="text-white/75 hover:text-gold transition-colors">The Experience</a></li>
+            <li><a href="../visit.html#schedule" class="text-white/75 hover:text-gold transition-colors">Dates &amp; Hours</a></li>
+            <li><a href="../visit.html#getting-here" class="text-white/75 hover:text-gold transition-colors">Location &amp; Parking</a></li>
+            <li><a href="../christmas-in-san-pedro.html" class="text-white/75 hover:text-gold transition-colors">Christmas in San Pedro</a></li>
+            <li><a href="../es/" class="text-white/75 hover:text-gold transition-colors" hreflang="es" lang="es">En español</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Support</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="../visit.html#faq" class="text-white/75 hover:text-gold transition-colors">FAQ</a></li>
+            <li><a href="../press.html" class="text-white/75 hover:text-gold transition-colors">Press &amp; Media</a></li>
+            <li><span class="cursor-default select-none text-white/40">Reschedule / Ticket Portal <span class="text-white/25 italic">(coming soon)</span></span></li>
+            <li><a href="mailto:info@harborglownights.com" class="text-white/75 hover:text-gold transition-colors">Contact Us</a></li>
+          </ul>
+          <p class="mt-3 text-[11px] text-white/30 leading-relaxed">For complete ticket policies, see our <a href="../ticket-terms/" class="underline hover:text-white/55">Ticketing Terms</a>.</p>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <p class="text-white/40 uppercase tracking-widest text-xs mb-3">Legal</p>
+          <ul class="space-y-2 text-sm">
+            <li><a href="../privacy/" class="text-white/75 hover:text-gold transition-colors">Privacy Policy</a></li>
+            <li><a href="../terms/" class="text-white/75 hover:text-gold transition-colors">Terms of Use</a></li>
+            <li><a href="../ticket-terms/" class="text-gold">Ticketing Terms &amp; Conditions</a></li>
+            <li><a href="../waiver/" class="text-white/75 hover:text-gold transition-colors">Waiver &amp; Release</a></li>
+            <li><a href="../privacy-request/" class="text-white/75 hover:text-gold transition-colors">Do Not Sell or Share My Personal Information</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5 text-xs text-white/45">
+        <p>&copy; <span id="year"></span> Glow Works Inc. All rights reserved. Harbor Glow™ is a trademark of Glow Works Inc.</p>
+        <div class="flex items-center gap-4 text-white/25">
+          <span class="cursor-default" title="Instagram — coming soon" aria-label="Instagram (coming soon)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="0.9" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span class="cursor-default" title="Facebook — coming soon" aria-label="Facebook (coming soon)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M14 9.5V8c0-.6.4-1 1-1h1.5V4H14c-2.2 0-4 1.8-4 4v1.5H8V12h2v8h3v-8h2.2l.4-2.5H13V9.5z"/></svg>
+          </span>
+        </div>
+      </div>
+      <p class="mt-4 text-[11px] text-white/30 italic">Images shown throughout this site are concept imagery — design concept, final execution may vary. Dates, hours, programming and operating details are subject to change.</p>
+    </div>
+  </footer>
+
+  <!-- ============ MOBILE STICKY CTA ============ -->
+  <a href="../index.html#ticket-alerts" class="md:hidden fixed bottom-4 inset-x-4 z-50 btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-center py-3.5 cursor-pointer">
+    Tickets Coming Soon
+  </a>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Subscribe forms — submit for real to Mailchimp (target="_blank" opens its
+    // response in a new tab) while showing an inline confirmation here. Fields are
+    // NOT disabled synchronously on submit — a disabled field is left out of the
+    // submitted form data, which would silently drop the email address.
+    document.querySelectorAll('.subscribe-form').forEach((form) => {
+      form.addEventListener('submit', () => {
+        const msg = form.querySelector('.subscribe-msg') || form.parentElement.querySelector('.subscribe-msg');
+        const input = form.querySelector('.subscribe-email');
+        const button = form.querySelector('button');
+        msg.textContent = "Thanks — we'll email you the moment tickets go live.";
+        msg.classList.remove('hidden');
+        setTimeout(() => {
+          input.disabled = true;
+          button.disabled = true;
+          button.classList.add('opacity-60', 'cursor-default');
+        }, 300);
+      });
+    });
+
+    // Ambient drifting light particles
+    (function () {
+      const canvas = document.getElementById('glow-particles');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let w, h, dpr;
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = canvas.clientWidth = window.innerWidth;
+        h = canvas.clientHeight = window.innerHeight;
+        canvas.width = w * dpr;
+        canvas.height = h * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      const colors = ['245,197,66', '255,224,138', '142,233,255'];
+      const count = window.innerWidth < 640 ? 28 : 50;
+      const particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.6 + Math.random() * 1.8,
+        speed: 0.12 + Math.random() * 0.3,
+        drift: (Math.random() - 0.5) * 0.25,
+        sway: Math.random() * Math.PI * 2,
+        swaySpeed: 0.002 + Math.random() * 0.004,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        alpha: 0.25 + Math.random() * 0.45,
+      }));
+
+      if (reduceMotion) {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${p.color},${p.alpha * 0.5})`;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        return;
+      }
+
+      function frame() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          p.sway += p.swaySpeed;
+          p.y -= p.speed;
+          p.x += p.drift + Math.sin(p.sway) * 0.15;
+          if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+          ctx.shadowColor = `rgba(${p.color},${p.alpha})`;
+          ctx.shadowBlur = 4;
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
