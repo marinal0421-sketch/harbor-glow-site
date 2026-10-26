@@ -46,7 +46,7 @@
       // automatically once the "Tickets Coming Soon" buttons become real links.
       document.addEventListener('click', function (e) {
         var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
-        if (!a || a.hostname !== 'tickets.harborglownights.com') return;
+        if (!a || ['harborglownights.ticketing.tscheckout.com', 'tickets.harborglownights.com'].indexOf(a.hostname) === -1) return;
         gtag('event', 'ticket_click', {
           link_url: a.href,
           link_text: (a.textContent || '').trim().slice(0, 100),
