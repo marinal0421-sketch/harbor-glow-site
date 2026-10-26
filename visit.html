@@ -169,7 +169,7 @@
     @media (max-width: 768px) { .page-hero-bg { background-attachment: scroll; } }
 
     .faq-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
-    .faq-item[open-state="true"] .faq-body { max-height: 400px; }
+    .faq-item[open-state="true"] .faq-body { max-height: 1200px; }
     .faq-item[open-state="true"] .faq-icon { transform: rotate(45deg); }
     .faq-icon { transition: transform .3s ease; }
 
@@ -244,7 +244,7 @@
       <h1 class="font-display text-4xl sm:text-6xl font-bold glow-text">Everything You Need to Know.</h1>
       <p class="mt-6 text-white/80 text-base leading-relaxed max-w-xl mx-auto">
         Dates, hours, getting here, and answers to the questions we hear most. This page will keep
-        growing as more details — pricing, parking maps, policies — are confirmed.
+        growing as more details are confirmed.
       </p>
     </div>
   </section>
@@ -301,12 +301,47 @@
         <div class="px-6 sm:px-8 py-8 text-center">
           <p class="text-white/85 font-medium text-lg">1332 South Harbor Blvd, San Pedro, CA 90731</p>
           <p class="mt-3 text-white/65 text-sm leading-relaxed max-w-xl mx-auto">
-            Harbor Glow is at West Harbor at Port of Los Angeles. On-site and nearby waterfront
-            parking will be available — we recommend arriving 15 minutes before your entry time. A full
-            parking map and pre-pay options will be posted here once tickets go on sale.
+            Harbor Glow is at West Harbor at Port of Los Angeles. Plan to arrive about 15 minutes before
+            your entry time, plus a few minutes to park and walk over.
           </p>
           <p class="mt-4 text-sm"><a href="christmas-in-san-pedro.html" class="underline text-electric-soft hover:text-white">Making a night of it? See our Christmas in San Pedro guide →</a></p>
         </div>
+      </div>
+
+      <!-- Parking -->
+      <div id="parking" class="mt-16 scroll-mt-28">
+        <div class="text-center max-w-2xl mx-auto">
+          <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">Parking</p>
+          <h3 class="font-display text-[1.7rem] leading-tight sm:text-4xl font-bold glow-blue text-electric-soft [text-wrap:balance]">Park Right at the Entrance</h3>
+        </div>
+
+        <!-- PARKING MAP: replace this placeholder div with
+             <img src="images/parking-map.webp" alt="..." class="w-full h-auto" />
+             inside the same rounded border once the final map is ready. -->
+        <div class="mt-8 rounded-3xl border border-dashed border-white/20 bg-white/[0.04] px-6 py-14 text-center">
+          <p class="text-white/70 font-medium">Parking map coming soon</p>
+          <p class="mt-2 text-xs text-white/45">Premium Parking is our dedicated lot beside the Harbor Glow entrance.</p>
+        </div>
+
+        <div class="mt-6 rounded-3xl border border-electric/40 bg-electric/[0.08] p-6 sm:p-8">
+          <p class="text-xs uppercase tracking-[0.2em] text-electric font-semibold">Recommended</p>
+          <h4 class="mt-2 font-display text-2xl sm:text-3xl font-bold text-white">Harbor Glow Premium Parking</h4>
+          <p class="mt-3 text-white/75 leading-relaxed">Our dedicated lot, right at the Harbor Glow entrance. Reserve it with your tickets and drive straight in.</p>
+          <ul class="mt-5 grid gap-3 sm:grid-cols-3 text-sm">
+            <li class="rounded-2xl bg-white/[0.06] px-4 py-3"><span class="block font-semibold text-white">Right at the entrance</span><span class="text-white/65">Park and walk straight in.</span></li>
+            <li class="rounded-2xl bg-white/[0.06] px-4 py-3"><span class="block font-semibold text-white">Guaranteed space</span><span class="text-white/65">Your spot is held for your date.</span></li>
+            <li class="rounded-2xl bg-white/[0.06] px-4 py-3"><span class="block font-semibold text-white">Easy with kids</span><span class="text-white/65">A short walk back to the car at the end of the night.</span></li>
+          </ul>
+          <p class="mt-5 text-sm text-white/65 leading-relaxed">Add a Premium Parking pass when you buy tickets; the price is shown before checkout. Spaces are limited. Your pass is valid for the date shown, and moves with your ticket if you change dates or receive a Rain Check.</p>
+        </div>
+
+        <p class="mt-5 text-sm text-white/60 leading-relaxed"><span class="font-semibold text-white/80">General parking:</span> West Harbor's public lot, a longer walk from the entrance. It's first come, first served and paid on site at West Harbor's rates. Harbor Glow does not sell passes for it.</p>
+
+        <ul class="mt-4 space-y-2 text-sm text-white/60 leading-relaxed list-disc pl-5">
+          <li>Accessible parking is available. Need help planning? Email info@harborglownights.com at least 48 hours ahead.</li>
+          <li>Taking a rideshare? Set your drop-off to 1332 South Harbor Blvd, San Pedro.</li>
+          <li>Lots follow West Harbor's rules. Vehicles are parked at the owner's risk and improperly parked vehicles may be towed.</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -319,73 +354,558 @@
     </div>
 
     <div class="mt-10 flex flex-wrap justify-center gap-3" id="faq-tabs">
-      <button class="tab-btn active rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="visiting">Visiting</button>
-      <button class="tab-btn rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="tickets">Tickets</button>
-      <button class="tab-btn rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="policies">Policies</button>
+      <button class="tab-btn active rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="tickets">Tickets</button>
+      <button class="tab-btn rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="weather">Weather &amp; Changes</button>
+      <button class="tab-btn rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="visiting">Visiting</button>
+      <button class="tab-btn rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="parking">Parking</button>
+      <button class="tab-btn rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors" data-tab="rules">What to Bring</button>
     </div>
 
-    <div class="mt-10 space-y-4 faq-panel" data-panel="visiting">
+    <div class="mt-10 space-y-4 faq-panel" data-panel="tickets">
       <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">Where do I park?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Where do I buy tickets?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
         </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Harbor Glow is located at 1332 South Harbor Blvd, San Pedro, CA 90731. On-site and nearby waterfront parking is available — we recommend arriving 15 minutes before your entry time. Parking details and pre-pay options will be posted once tickets go on sale.</p></div>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Online here at harborglownights.com. Pick your date and a 30-minute entry time, and your tickets arrive by email.</p><p>Our on-site box office also sells tickets for that night while they last, at day-of prices. Buying ahead is the way to get the night and time you want.</p></div></div>
       </div>
 
       <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">How long does the experience take?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">How much are tickets?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
         </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Most guests move through both the ice kingdom and the ocean realm in about 40 minutes to an hour. There's no rush — once you're in, you're welcome to linger until closing.</p></div>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Prices vary by date. Weeknights cost less than weekends and holiday weeks, and prices go up on the day of your visit, so buying in advance saves money.</p><p>The price you see is the price you pay. All mandatory fees are already included. Parking and Dino Ride tokens are optional add-ons, priced separately before checkout.</p></div></div>
       </div>
 
       <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">Is it stroller and wheelchair accessible?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Do kids need a ticket?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
         </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Yes. The main light path is flat and fully accessible for strollers and wheelchairs. Accessible parking and restrooms are available on site.</p></div>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><ul class="list-disc pl-5 space-y-1.5"><li>Under 3: free, but please reserve a free ticket so we can plan capacity.</li><li>Ages 3–12: child ticket.</li><li>Ages 13 and up: adult ticket.</li></ul><p>Guests under 18 must be with an adult 18 or older at all times.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Do you offer senior or military tickets?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Yes. Senior tickets are for guests 65 and older. Military tickets are for current and former service members. We may ask for proof at entry. If you can't show it, you'll pay the difference to the regular ticket price.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I use more than one promo code?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>No. One discount or promo code applies per ticket. Codes can't be combined, have no cash value, and can't be added to an order after purchase.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">I'm booking for a group of more than 10.</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Online orders are limited to 10 tickets. For larger groups, email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a> and we'll help.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">I can't find my tickets.</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Check your spam or promotions folder for the confirmation email. Still missing? Email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a>. We can resend tickets that haven't been scanned to the email address used for the purchase.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I give my tickets to someone else?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Yes, tickets can be transferred. Please share our Ticketing Terms with them.</p><p>We don't have an official resale partner. Tickets bought from resale sites or social media sellers may not be valid, and we can't replace or refund them.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I get a refund?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>All sales are final. If your plans change, you may be able to move to another date through the ticket portal (see Weather &amp; Changes). If we cancel or close a night, your ticket automatically becomes a Rain Check.</p></div></div>
       </div>
     </div>
-
-    <div class="mt-10 space-y-4 faq-panel hidden" data-panel="tickets">
+    <div class="mt-10 space-y-4 faq-panel hidden" data-panel="weather">
       <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">When do tickets go on sale?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Is Harbor Glow open when it rains?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
         </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Tickets aren't live yet. The ticket sales page at harborglownights.com is expected to go live in late October 2026 — check back here or follow our social channels for the exact on-sale date.</p></div>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Harbor Glow is outdoors, and we'd rather move your visit than have you walk the lights in the rain. So we may cancel or close a night for rain or other weather, or for safety reasons such as high winds, lightning or a power problem. If we do, your ticket becomes a Rain Check automatically.</p><p>Whether to open is our call. If we open or stay open, rain, cold or a closed display doesn't qualify for a Rain Check or refund, so please dress warmly.</p></div></div>
       </div>
 
       <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">Do children need a ticket?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">How will I know if a night is cancelled?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
         </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Children 2 and under are free and do not need a ticket. Kids 3 and up will require a child ticket at a reduced price, with family 4-packs offering the best value — full pricing goes live with tickets.</p></div>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>We aim to decide by about 2:00 PM Pacific that day. We'll email and/or text the ticket purchaser and post updates on this website and our social channels.</p><p>Weather can change quickly, so we may occasionally cancel or close later in the day. Please keep your email and phone number up to date in your order.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">What happens to my ticket if a night is cancelled?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>It automatically becomes a Rain Check. You don't need to do anything.</p><ul class="list-disc pl-5 space-y-1.5"><li>Use the ticket portal to reserve any remaining night this season.</li><li>Nights at the same or a lower price are free. For a higher-priced night, you pay only the difference.</li><li>The usual date-change cut-off doesn't apply to Rain Checks.</li><li>A parking pass bought with your ticket moves with it.</li><li>Rain Checks expire at the end of this season (January 3, 2027) and have no cash value.</li></ul><p>If the night you rebook is also cancelled, you'll get a new Rain Check.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">What if it starts raining after I arrive?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>If we close within 60 minutes after the start of your entry window, your ticket becomes a Rain Check. If we close later than that, your visit counts as used.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I change my date or time?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Where the ticket portal offers it, date and time changes are free, subject to availability. Use the portal link in your confirmation email.</p><ul class="list-disc pl-5 space-y-1.5"><li>Changes can't be made within 48 hours of your original entry time.</li><li>Moving to a higher-priced night: pay the difference. Moving to a lower-priced night: no refund of the difference.</li><li>Tickets are valid only for this season at Harbor Glow, West Harbor.</li></ul><p>Missed entry times can't be changed or refunded afterward.</p></div></div>
       </div>
     </div>
-
-    <div class="mt-10 space-y-4 faq-panel hidden" data-panel="policies">
+    <div class="mt-10 space-y-4 faq-panel hidden" data-panel="visiting">
       <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
-          <span class="font-medium text-base sm:text-lg">What happens if it rains?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">When should I arrive?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
         </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Harbor Glow is a mostly outdoor experience, and we may close for rain or other weather. If we cancel or close a night, your ticket automatically becomes a Rain Check you can use on another available night this season. See our <a href="ticket-terms/" class="underline hover:text-white">Ticketing Terms</a> for details.</p></div>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Each ticket has a 30-minute entry window. Arrive up to 15 minutes before it starts. We admit guests up to 30 minutes after the window opens. After that, we'll try to fit you into a later window, but we can't guarantee it.</p><p>Leave extra time to park and walk over, especially on Friday and Saturday nights.</p></div></div>
       </div>
 
       <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
-        <button class="faq-trigger w-full flex items-center justify-between text-left px-6 py-5">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">How long does the visit take?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Most guests spend 40 to 60 minutes. There's no time limit, so stay until closing if you like. Leaving the event ends your visit; there's no re-entry.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Is it stroller and wheelchair friendly?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Yes. Strollers, wagons, wheelchairs and mobility devices are all welcome. Some surfaces are uneven or may be wet, so please take care.</p><p>If you need an accommodation, email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a> at least 48 hours before your visit and we'll help you plan.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Is there anything to know about the lights?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>The event includes flashing lights, fog effects and dark areas. Guests with light sensitivity or photosensitive conditions should keep this in mind.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can we bring food?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Outside food isn't allowed, except baby food and items needed for medical or dietary reasons. Alcohol isn't permitted.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">What is the Dino Ride?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>An optional, self-driven motorized dinosaur ride. It's not included in admission. Buy ride tokens at the Dino Token Booth, or add them to your ticket order.</p><ul class="list-disc pl-5 space-y-1.5"><li>Riders must be at least 3 years old and no more than 200 lbs.</li><li>One rider per dino, no passengers.</li><li>Children must be supervised by their adult while riding.</li><li>Tokens are non-refundable and valid any night this season.</li></ul></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">I lost something at Harbor Glow.</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a> with a description and the night you visited, and we'll check lost and found.</p></div></div>
+      </div>
+    </div>
+    <div class="mt-10 space-y-4 faq-panel hidden" data-panel="parking">
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Where should I park?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>We recommend Harbor Glow Premium Parking, our dedicated lot right at the entrance. Your space is guaranteed for your date, and you can add a pass when you buy tickets. See the <a href="#parking" class="underline text-electric-soft hover:text-white">parking map</a> section above.</p><p>If you'd rather not reserve, West Harbor's public lot is a longer walk away. It's first come, first served and paid on site at West Harbor's rates.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">How does Premium Parking work?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Add a Premium Parking pass to your ticket order. The price is shown before checkout. Spaces are limited, so book early.</p><p>Your pass is valid for the date shown. If your ticket becomes a Rain Check or you change your date, the pass moves with it.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I buy Premium Parking on the night?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Book with your tickets to be sure of a space. Premium spaces are limited and can sell out, especially on Friday and Saturday nights and holiday weeks.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Is there accessible parking?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Yes. If you need help planning your arrival, email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a> at least 48 hours ahead.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I take a rideshare?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Yes. Set your drop-off to 1332 South Harbor Blvd, San Pedro, CA 90731.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Anything else I should know?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Parking lots follow West Harbor's rules. Vehicles are parked at the owner's risk, and improperly parked vehicles may be towed at the owner's expense.</p></div></div>
+      </div>
+    </div>
+    <div class="mt-10 space-y-4 faq-panel hidden" data-panel="rules">
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
           <span class="font-medium text-base sm:text-lg">Can I bring my dog?</span>
-          <span class="faq-icon text-gold text-2xl leading-none">+</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
         </button>
-        <div class="faq-body px-6"><p class="pb-5 text-white/70 text-sm leading-relaxed">Only trained service animals are permitted at Harbor Glow. We're unable to accommodate other pets, including emotional support animals, given the density of the light scenes and crowd flow along the path.</p></div>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Only service animals as defined by the ADA are allowed, and they must stay under their handler's control. Pets and emotional support, comfort or therapy animals aren't permitted.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">What size bag can I bring?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Bags up to 16 × 16 × 8 inches, about the size of a standard backpack. Diaper bags and medical bags are welcome. No coolers, suitcases or large luggage. Bags may be searched at entry.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">What's not allowed?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><ul class="list-disc pl-5 space-y-1.5"><li>Pets (service animals excepted)</li><li>Alcohol, illegal drugs and cannabis</li><li>Weapons, fireworks, laser pointers and hazardous materials</li><li>Glass containers</li><li>Drones</li><li>Tripods, monopods and light stands</li><li>Bicycles, scooters, skateboards, hoverboards and skates</li><li>Amplified speakers</li><li>Outside food (baby food and medical or dietary items are fine)</li></ul><p>There's no smoking or vaping anywhere at the event.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I take photos?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Yes! Photos and video on phones and handheld cameras are welcome for personal use. Tripods, monopods and light stands aren't allowed during public hours.</p><p>Hired photographers, paid sessions (family, maternity, engagement), content shoots and drones need our written permission in advance. Email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a>.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">Can I propose at Harbor Glow?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>We'd love that. If you're planning props, décor or any setup, email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a> ahead of time for approval.</p></div></div>
+      </div>
+
+      <div class="faq-item rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm" open-state="false">
+        <button class="faq-trigger w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+          <span class="font-medium text-base sm:text-lg">What should I wear?</span>
+          <span class="faq-icon text-gold text-2xl leading-none shrink-0">+</span>
+        </button>
+        <div class="faq-body px-6"><div class="pb-5 text-white/70 text-sm leading-relaxed space-y-3"><p>Evenings on the waterfront get chilly. Bring warm layers and wear comfortable shoes for walking.</p></div></div>
       </div>
     </div>
+
+    <p class="mt-10 text-center text-xs text-white/50">These answers summarize our policies. The full rules are in our <a href="ticket-terms/" class="underline text-electric-soft hover:text-white">Ticketing Terms</a>. Questions? Email <a href="mailto:info@harborglownights.com" class="underline text-electric-soft hover:text-white">info@harborglownights.com</a>.</p>
   </section>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Where do I buy tickets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Online here at harborglownights.com. Pick your date and a 30-minute entry time, and your tickets arrive by email. Our on-site box office also sells tickets for that night while they last, at day-of prices. Buying ahead is the way to get the night and time you want."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much are tickets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prices vary by date. Weeknights cost less than weekends and holiday weeks, and prices go up on the day of your visit, so buying in advance saves money. The price you see is the price you pay. All mandatory fees are already included. Parking and Dino Ride tokens are optional add-ons, priced separately before checkout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do kids need a ticket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under 3: free, but please reserve a free ticket so we can plan capacity. Ages 3–12: child ticket. Ages 13 and up: adult ticket. Guests under 18 must be with an adult 18 or older at all times."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer senior or military tickets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Senior tickets are for guests 65 and older. Military tickets are for current and former service members. We may ask for proof at entry. If you can't show it, you'll pay the difference to the regular ticket price."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use more than one promo code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. One discount or promo code applies per ticket. Codes can't be combined, have no cash value, and can't be added to an order after purchase."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I'm booking for a group of more than 10.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Online orders are limited to 10 tickets. For larger groups, email info@harborglownights.com and we'll help."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I can't find my tickets.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check your spam or promotions folder for the confirmation email. Still missing? Email info@harborglownights.com. We can resend tickets that haven't been scanned to the email address used for the purchase."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I give my tickets to someone else?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, tickets can be transferred. Please share our Ticketing Terms with them. We don't have an official resale partner. Tickets bought from resale sites or social media sellers may not be valid, and we can't replace or refund them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I get a refund?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All sales are final. If your plans change, you may be able to move to another date through the ticket portal (see Weather & Changes). If we cancel or close a night, your ticket automatically becomes a Rain Check."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Harbor Glow open when it rains?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Harbor Glow is outdoors, and we'd rather move your visit than have you walk the lights in the rain. So we may cancel or close a night for rain or other weather, or for safety reasons such as high winds, lightning or a power problem. If we do, your ticket becomes a Rain Check automatically. Whether to open is our call. If we open or stay open, rain, cold or a closed display doesn't qualify for a Rain Check or refund, so please dress warmly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How will I know if a night is cancelled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We aim to decide by about 2:00 PM Pacific that day. We'll email and/or text the ticket purchaser and post updates on this website and our social channels. Weather can change quickly, so we may occasionally cancel or close later in the day. Please keep your email and phone number up to date in your order."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens to my ticket if a night is cancelled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It automatically becomes a Rain Check. You don't need to do anything. Use the ticket portal to reserve any remaining night this season. Nights at the same or a lower price are free. For a higher-priced night, you pay only the difference. The usual date-change cut-off doesn't apply to Rain Checks. A parking pass bought with your ticket moves with it. Rain Checks expire at the end of this season (January 3, 2027) and have no cash value. If the night you rebook is also cancelled, you'll get a new Rain Check."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if it starts raining after I arrive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If we close within 60 minutes after the start of your entry window, your ticket becomes a Rain Check. If we close later than that, your visit counts as used."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I change my date or time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Where the ticket portal offers it, date and time changes are free, subject to availability. Use the portal link in your confirmation email. Changes can't be made within 48 hours of your original entry time. Moving to a higher-priced night: pay the difference. Moving to a lower-priced night: no refund of the difference. Tickets are valid only for this season at Harbor Glow, West Harbor. Missed entry times can't be changed or refunded afterward."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should I arrive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each ticket has a 30-minute entry window. Arrive up to 15 minutes before it starts. We admit guests up to 30 minutes after the window opens. After that, we'll try to fit you into a later window, but we can't guarantee it. Leave extra time to park and walk over, especially on Friday and Saturday nights."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does the visit take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most guests spend 40 to 60 minutes. There's no time limit, so stay until closing if you like. Leaving the event ends your visit; there's no re-entry."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it stroller and wheelchair friendly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Strollers, wagons, wheelchairs and mobility devices are all welcome. Some surfaces are uneven or may be wet, so please take care. If you need an accommodation, email info@harborglownights.com at least 48 hours before your visit and we'll help you plan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there anything to know about the lights?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The event includes flashing lights, fog effects and dark areas. Guests with light sensitivity or photosensitive conditions should keep this in mind."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring food?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Outside food isn't allowed, except baby food and items needed for medical or dietary reasons. Alcohol isn't permitted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Dino Ride?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An optional, self-driven motorized dinosaur ride. It's not included in admission. Buy ride tokens at the Dino Token Booth, or add them to your ticket order. Riders must be at least 3 years old and no more than 200 lbs. One rider per dino, no passengers. Children must be supervised by their adult while riding. Tokens are non-refundable and valid any night this season."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I lost something at Harbor Glow.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Email info@harborglownights.com with a description and the night you visited, and we'll check lost and found."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where should I park?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We recommend Harbor Glow Premium Parking, our dedicated lot right at the entrance. Your space is guaranteed for your date, and you can add a pass when you buy tickets. See the parking map section above. If you'd rather not reserve, West Harbor's public lot is a longer walk away. It's first come, first served and paid on site at West Harbor's rates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Premium Parking work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Add a Premium Parking pass to your ticket order. The price is shown before checkout. Spaces are limited, so book early. Your pass is valid for the date shown. If your ticket becomes a Rain Check or you change your date, the pass moves with it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I buy Premium Parking on the night?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book with your tickets to be sure of a space. Premium spaces are limited and can sell out, especially on Friday and Saturday nights and holiday weeks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there accessible parking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. If you need help planning your arrival, email info@harborglownights.com at least 48 hours ahead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I take a rideshare?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Set your drop-off to 1332 South Harbor Blvd, San Pedro, CA 90731."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Anything else I should know?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Parking lots follow West Harbor's rules. Vehicles are parked at the owner's risk, and improperly parked vehicles may be towed at the owner's expense."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I bring my dog?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only service animals as defined by the ADA are allowed, and they must stay under their handler's control. Pets and emotional support, comfort or therapy animals aren't permitted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What size bag can I bring?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bags up to 16 × 16 × 8 inches, about the size of a standard backpack. Diaper bags and medical bags are welcome. No coolers, suitcases or large luggage. Bags may be searched at entry."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's not allowed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pets (service animals excepted). Alcohol, illegal drugs and cannabis. Weapons, fireworks, laser pointers and hazardous materials. Glass containers. Drones. Tripods, monopods and light stands. Bicycles, scooters, skateboards, hoverboards and skates. Amplified speakers. Outside food (baby food and medical or dietary items are fine). There's no smoking or vaping anywhere at the event."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I take photos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Photos and video on phones and handheld cameras are welcome for personal use. Tripods, monopods and light stands aren't allowed during public hours. Hired photographers, paid sessions (family, maternity, engagement), content shoots and drones need our written permission in advance. Email info@harborglownights.com."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I propose at Harbor Glow?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We'd love that. If you're planning props, décor or any setup, email info@harborglownights.com ahead of time for approval."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I wear?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evenings on the waterfront get chilly. Bring warm layers and wear comfortable shoes for walking."
+      }
+    }
+  ]
+}
+  </script>
 
   <!-- ============ FINAL CTA BAND ============ -->
   <section class="relative z-10 overflow-hidden">
