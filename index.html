@@ -318,8 +318,8 @@
 
       <div class="justify-self-end flex items-center gap-2 sm:gap-3">
         <a href="es/" hreflang="es" lang="es" aria-label="Español" title="Español" class="rounded-full border border-white/25 px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] text-white/80 hover:text-gold hover:border-gold transition-colors">ES</a>
-        <a href="#ticket-alerts" class="btn-glow whitespace-nowrap rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-xs sm:text-sm px-4 lg:px-6 py-2.5 cursor-pointer">
-          Tickets Coming Soon
+        <a href="https://harborglownights.ticketing.tscheckout.com/" class="btn-glow whitespace-nowrap rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-xs sm:text-sm px-4 lg:px-6 py-2.5 cursor-pointer">
+          Buy Tickets
         </a>
       </div>
     </nav>
@@ -333,55 +333,57 @@
   </header>
 
   <!-- ============ HERO ============ -->
-  <section id="top" class="hero-bg relative min-h-[100svh] flex items-center justify-center text-center px-6 pt-28 pb-20">
+  <section id="top" class="hero-bg relative min-h-[100svh] flex items-start justify-center text-center px-6 pt-24 sm:pt-28 pb-16">
     <div class="relative z-10 max-w-4xl 2xl:max-w-5xl mx-auto">
       <h1 class="relative inline-block mx-auto">
         <span class="sr-only">Harbor Glow — Holiday Light Experience at West Harbor, San Pedro</span>
-        <img src="images/logo.webp" alt="" aria-hidden="true" fetchpriority="high" class="logo-mark w-full max-w-[260px] sm:max-w-[340px] md:max-w-[400px] mx-auto" />
+        <img src="images/logo.webp" alt="" aria-hidden="true" fetchpriority="high" class="logo-mark w-full max-w-[190px] sm:max-w-[240px] md:max-w-[270px] mx-auto" />
       </h1>
 
-      <p class="mt-6 text-lg sm:text-2xl text-white/85 font-light max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed">
-        A walk-through holiday light experience on the harbor —<br />
-        two glowing worlds, 15+ scenes,<br />
-        where the harbor meets the glow.
+      <p class="mt-3 text-base sm:text-xl text-white/85 font-light max-w-2xl 2xl:max-w-3xl mx-auto leading-snug [text-wrap:balance]">
+        A walk-through holiday light experience on the harbor — two glowing worlds, 15+ scenes, where the harbor meets the glow.
       </p>
 
-      <div class="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-sm sm:text-base">
-        <span class="rounded-full border border-electric/40 bg-electric/10 px-5 py-2 text-electric-soft glow-blue">
+      <div class="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <span class="rounded-full border border-electric/40 bg-electric/10 px-4 py-1.5 text-electric-soft glow-blue">
           Nov 20, 2026 – Jan 3, 2027
         </span>
-        <span class="rounded-full border border-white/20 bg-white/5 px-5 py-2 text-white/80">
+        <span class="rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-white/80">
           Open Nightly
         </span>
-        <span class="rounded-full border border-white/20 bg-white/5 px-5 py-2 text-white/80">
+        <span class="rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-white/80">
           1332 S Harbor Blvd, San Pedro, CA 90731
         </span>
       </div>
 
-      <p class="mt-6 text-base sm:text-lg font-semibold text-gold-soft glow-text">Early bird pricing through Nov 13 &middot; Tickets from $19</p>
 
-      <div id="ticket-alerts" class="subscribe-card scroll-mt-28 mt-10 max-w-xl mx-auto rounded-3xl border border-gold/40 bg-midnight/70 backdrop-blur-md px-6 sm:px-10 py-8 text-center">
-        <p class="inline-flex items-center gap-2 rounded-full border border-electric/40 bg-electric/10 px-4 py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-electric-soft">
-          <span class="pulse-dot inline-block h-2 w-2 rounded-full bg-electric"></span>
-          Tickets on sale Tue, Oct 27 &middot; 3 PM PT
+      <div id="ticket-alerts" class="subscribe-card scroll-mt-28 mt-6 max-w-xl mx-auto rounded-3xl border-2 border-gold/60 bg-midnight/75 backdrop-blur-md px-6 sm:px-10 pt-6 pb-6 text-center" style="box-shadow:0 0 60px -12px rgba(245,197,66,0.45);">
+        <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 text-xs sm:text-sm font-bold uppercase tracking-[0.18em] text-midnight">
+          <span class="pulse-dot inline-block h-2 w-2 rounded-full bg-midnight"></span>
+          Tickets on sale now
         </p>
-        <p class="mt-4 font-display text-2xl sm:text-3xl font-bold glow-text">Get First Access to Tickets</p>
-        <p class="mt-2 text-sm sm:text-base text-white/75">Join the list and we'll email you the moment tickets go live.</p>
-        <form class="subscribe-form mt-6 flex flex-col sm:flex-row gap-3"
-              action="https://harborglownights.us14.list-manage.com/subscribe/post?u=16c7dc0f6b50533cea5598927&amp;id=2fde17af61&amp;f_id=009f96e0f0"
-              method="post" target="_blank" novalidate>
-          <input type="email" name="EMAIL" required placeholder="Your email address"
-                 class="subscribe-email flex-1 w-full min-w-0 rounded-full border border-white/30 bg-white/15 px-6 py-4 text-white placeholder-white/55 text-base focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/40" />
-          <div aria-hidden="true" style="position:absolute; left:-5000px;">
-            <input type="text" name="b_16c7dc0f6b50533cea5598927_2fde17af61" tabindex="-1" value="" />
-          </div>
-          <button type="submit" name="subscribe"
-                  class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-base px-8 py-4 whitespace-nowrap">
-            Notify Me
-          </button>
-        </form>
-        <p class="subscribe-msg hidden mt-3 text-sm text-electric-soft"></p>
-        <p class="mt-3 text-[11px] text-white/45 leading-relaxed">By subscribing, you agree to receive marketing emails from Harbor Glow. Unsubscribe anytime. See our <a href="privacy/" class="underline hover:text-white/70">Privacy Policy</a>.</p>
+        <p class="mt-4 font-display text-3xl sm:text-5xl font-bold glow-text text-gold-soft leading-tight">Early Bird Pricing</p>
+        <p class="mt-2 text-lg sm:text-2xl font-semibold text-white [text-wrap:balance]">Tickets from $19 <span class="whitespace-nowrap">&middot; through Nov 13</span></p>
+        <a href="https://harborglownights.ticketing.tscheckout.com/" class="btn-glow mt-5 inline-block w-full sm:w-auto rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-xl px-16 py-4">Buy Tickets</a>
+        <p class="mt-3 text-xs sm:text-sm text-white/60">Pick your date and entry time &middot; Add Premium Parking at the entrance</p>
+        <div class="mt-5 border-t border-white/10 pt-4">
+          <p class="text-xs sm:text-sm text-white/70"><span class="font-semibold text-white/85">Not ready to pick a date?</span> Get event news and special offers by email.</p>
+          <form class="subscribe-form mt-3 flex flex-col sm:flex-row gap-2"
+                action="https://harborglownights.us14.list-manage.com/subscribe/post?u=16c7dc0f6b50533cea5598927&amp;id=2fde17af61&amp;f_id=009f96e0f0"
+                method="post" target="_blank" novalidate>
+            <input type="email" name="EMAIL" required placeholder="Your email address"
+                   class="subscribe-email flex-1 w-full min-w-0 rounded-full border border-white/25 bg-white/10 px-5 py-2.5 text-white placeholder-white/50 text-sm focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/40" />
+            <div aria-hidden="true" style="position:absolute; left:-5000px;">
+              <input type="text" name="b_16c7dc0f6b50533cea5598927_2fde17af61" tabindex="-1" value="" />
+            </div>
+            <button type="submit" name="subscribe"
+                    class="rounded-full border border-gold/60 text-gold-soft font-semibold text-sm px-6 py-2.5 whitespace-nowrap hover:bg-gold/10">
+              Sign Up
+            </button>
+          </form>
+          <p class="subscribe-msg hidden mt-2 text-sm text-electric-soft"></p>
+          <p class="mt-2 text-[10px] text-white/40 leading-relaxed">By subscribing, you agree to receive marketing emails from Harbor Glow. Unsubscribe anytime. See our <a href="privacy/" class="underline hover:text-white/70">Privacy Policy</a>.</p>
+        </div>
       </div>
 
       <div class="mt-6">
@@ -562,8 +564,8 @@
       <p class="mt-2 text-center text-xs text-white/35">Dates, hours, programming and operating details are subject to change.</p>
 
       <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="#ticket-alerts" class="btn-glow inline-block rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold px-10 py-3.5 cursor-pointer">
-          Tickets Coming Soon
+        <a href="https://harborglownights.ticketing.tscheckout.com/" class="btn-glow inline-block rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold px-10 py-3.5 cursor-pointer">
+          Buy Tickets
         </a>
         <a href="visit.html"
            class="rounded-full border border-white/25 text-white/90 font-medium px-8 py-3.5 hover:border-electric hover:text-electric-soft transition-all duration-300">
@@ -579,9 +581,9 @@
       <div class="rounded-[2.5rem] border border-gold/20 bg-gradient-to-br from-grape/60 to-midnight-2/60 px-6 sm:px-16 py-16"
            style="box-shadow:0 0 80px -20px rgba(245,197,66,0.35);">
         <h2 class="font-display text-4xl sm:text-6xl font-extrabold glow-text">The harbor is glowing.</h2>
-        <p class="mt-5 text-white/80 text-lg max-w-xl mx-auto">Tickets go on sale Tuesday, October 27 at 3 PM PT. Early bird pricing runs through Nov 13.</p>
-        <a href="#ticket-alerts" class="btn-glow mt-9 inline-block rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-lg sm:text-xl px-14 py-4 cursor-pointer">
-          Tickets Coming Soon
+        <p class="mt-5 text-white/80 text-lg max-w-xl mx-auto">Early bird pricing through Nov 13. Pick your night.</p>
+        <a href="https://harborglownights.ticketing.tscheckout.com/" class="btn-glow mt-9 inline-block rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-lg sm:text-xl px-14 py-4 cursor-pointer">
+          Buy Tickets
         </a>
         <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <p class="text-white/80">Follow along on <span class="font-semibold text-gold-soft">@harborglownights</span></p>
@@ -621,7 +623,7 @@
               </div>
               <button type="submit" name="subscribe"
                       class="btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-semibold text-xs px-4 py-2">
-                Be the First to Know
+                Get Updates &amp; Offers
               </button>
             </form>
             <p class="subscribe-msg hidden mt-2 text-[11px] text-electric-soft"></p>
@@ -680,8 +682,8 @@
   </footer>
 
   <!-- ============ MOBILE STICKY CTA ============ -->
-  <a id="mobile-cta" href="#ticket-alerts" class="md:hidden fixed bottom-4 transition-opacity duration-300 inset-x-4 z-50 btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-center py-3.5 cursor-pointer">
-    Tickets Coming Soon
+  <a id="mobile-cta" href="https://harborglownights.ticketing.tscheckout.com/" class="md:hidden fixed bottom-4 transition-opacity duration-300 inset-x-4 z-50 btn-glow rounded-full bg-gradient-to-r from-gold to-gold-soft text-midnight font-bold text-center py-3.5 cursor-pointer">
+    Buy Tickets
   </a>
 
   <script>
@@ -707,7 +709,7 @@
         const msg = form.querySelector('.subscribe-msg') || form.parentElement.querySelector('.subscribe-msg');
         const input = form.querySelector('.subscribe-email');
         const button = form.querySelector('button');
-        msg.textContent = "Thanks — we'll email you the moment tickets go live.";
+        msg.textContent = "Thanks — you're on the list.";
         msg.classList.remove('hidden');
         setTimeout(() => {
           input.disabled = true;
