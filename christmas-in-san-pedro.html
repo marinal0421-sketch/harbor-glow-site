@@ -9,8 +9,8 @@
   <script>
   (function () {
     var GA4_MEASUREMENT_ID = 'G-J6FZ27VS8N';   // Harbor Glow GA4 property
-    var META_PIXEL_ID      = '';   // TODO: paste Meta Pixel ID
-    var TIKTOK_PIXEL_ID    = '';   // TODO: paste TikTok Pixel ID
+    var META_PIXEL_ID      = '1364501696935462';   // Glow Works x NYBA Pixel
+    var TIKTOK_PIXEL_ID    = 'DBL1V63C77U4J2JQSVAG';   // TikTok pixel (NYBA)
 
     var gpc = navigator.globalPrivacyControl === true;
 
@@ -84,6 +84,21 @@
           ttq.page();
         }(window, document, 'ttq');
       }
+
+      // Ad-platform events, same triggers as GA4 above. Meta uses a custom event name
+      // (TicketClick) so it never collides with TicketSocket's own InitiateCheckout/Purchase.
+      document.addEventListener('submit', function (e) {
+        var form = e.target && e.target.closest ? e.target.closest('.subscribe-form') : null;
+        if (!form) return;
+        if (window.fbq) fbq('track', 'Lead', { content_name: 'mailchimp_signup' });
+        if (window.ttq) ttq.track('Subscribe');
+      }, true);
+      document.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!a || ['harborglownights.ticketing.tscheckout.com', 'tickets.harborglownights.com'].indexOf(a.hostname) === -1) return;
+        if (window.fbq) fbq('trackCustom', 'TicketClick');
+        if (window.ttq) ttq.track('ClickButton', { content_name: 'ticket_click' });
+      }, true);
     }
   })();
   </script>
