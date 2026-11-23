@@ -319,6 +319,59 @@
 
   <!-- ============ NAV ============ -->
   <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-gradient-to-b from-midnight/70 via-midnight/30 to-transparent">
+    <!-- ===== FREE DINO RIDE BANNER (Nov 23–24, 2026) — hides itself after Tue 11/24 9:30 PM PT; safe to delete after ===== -->
+    <div id="dino-banner" style="display:none">
+      <a href="https://harborglownights.ticketing.tscheckout.com/" class="dino-banner__link">
+        <span class="dino-banner__emoji" aria-hidden="true">🦕</span>
+        <span class="dino-banner__text">
+          <strong>Thanksgiving Break Treat:</strong>
+          <span class="dino-banner__long">Free Dino Ride for kids 3+ with paid admission, Mon 11/23 &amp; Tue 11/24 · 5:30–9:30 PM</span>
+          <span class="dino-banner__short">Free Dino Ride for kids 3+ · Mon &amp; Tue</span>
+        </span>
+        <span class="dino-banner__cta">Get Tickets →</span>
+      </a>
+      <button type="button" class="dino-banner__close" aria-label="Close announcement">×</button>
+    </div>
+    <style>
+      #dino-banner { position: relative; background: linear-gradient(90deg,#1a0b3d 0%,#2a1060 50%,#1a0b3d 100%); border-bottom: 1px solid rgba(245,197,66,.35); }
+      .dino-banner__link { display:flex; align-items:center; justify-content:center; gap:12px; padding:9px 48px 9px 16px; color:#fff; text-decoration:none; font-size:15px; line-height:1.35; text-align:center; }
+      .dino-banner__emoji { font-size:20px; }
+      .dino-banner__text strong { color:#f5c542; font-weight:700; }
+      .dino-banner__short { display:none; }
+      .dino-banner__cta { flex-shrink:0; background:#f5c542; color:#1a0b3d; font-weight:700; font-size:14px; padding:5px 14px; border-radius:999px; white-space:nowrap; }
+      .dino-banner__link:hover .dino-banner__cta { background:#ffd866; }
+      .dino-banner__close { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,.7); font-size:22px; line-height:1; cursor:pointer; padding:4px 8px; }
+      .dino-banner__close:hover { color:#fff; }
+      @media (max-width:720px) {
+        .dino-banner__link { font-size:13px; gap:8px; padding:8px 38px 8px 10px; }
+        .dino-banner__long { display:none; }
+        .dino-banner__short { display:inline; }
+        .dino-banner__cta { font-size:12px; padding:4px 10px; }
+      }
+    </style>
+    <script>
+      (function () {
+        var END = Date.parse('2026-11-25T05:30:00Z'); // Tue 11/24 9:30 PM PT
+        var b = document.getElementById('dino-banner');
+        if (!b || Date.now() > END) return;
+        try { if (sessionStorage.getItem('dinoBannerClosed') === '1') return; } catch (e) {}
+        b.style.display = 'block';
+        // Push the hero down by the banner's height so the banner never covers it
+        function pad() {
+          var t = document.getElementById('top'); if (!t) return;
+          t.style.paddingTop = '';
+          if (b.style.display === 'none') return;
+          t.style.paddingTop = (parseFloat(getComputedStyle(t).paddingTop) + b.offsetHeight) + 'px';
+        }
+        document.addEventListener('DOMContentLoaded', pad);
+        window.addEventListener('resize', pad);
+        b.querySelector('.dino-banner__close').addEventListener('click', function () {
+          b.style.display = 'none'; pad();
+          try { sessionStorage.setItem('dinoBannerClosed', '1'); } catch (e) {}
+        });
+      })();
+    </script>
+    <!-- ===== END FREE DINO RIDE BANNER ===== -->
     <nav class="max-w-7xl 2xl:max-w-[1600px] mx-auto grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 py-3 sm:py-4">
       <a href="#top" class="relative inline-block justify-self-start" aria-label="Harbor Glow home">
         <img src="images/logo.webp" alt="Harbor Glow by Glow Works" class="logo-mark h-12 sm:h-16 w-auto" />
