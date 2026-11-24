@@ -237,9 +237,9 @@
       background:
         linear-gradient(180deg, rgba(5,6,26,0.40) 0%, rgba(5,6,26,0.60) 45%, rgba(5,6,26,0.97) 100%),
         radial-gradient(ellipse 80% 60% at 50% 20%, rgba(58,210,255,0.22), transparent 60%),
-        url('images/hero_winter.webp');
+        url('images/real/hero-christmas-wonderland.webp');
       background-size: cover;
-      background-position: center 30%;
+      background-position: center 55%;
     }
 
     @keyframes pulse-soft { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
@@ -285,7 +285,7 @@
       background:
         linear-gradient(180deg, rgba(5,6,26,0.80) 0%, rgba(5,6,26,0.90) 55%, rgba(5,6,26,0.98) 100%),
         radial-gradient(ellipse 70% 50% at 50% 0%, rgba(58,210,255,0.14), transparent 60%),
-        url('images/trees.webp');
+        url('images/real/waterfront-crystals.webp');
       background-size: cover;
       background-position: center 35%;
       background-attachment: fixed;
@@ -301,6 +301,7 @@
     }
     @media (max-width: 768px) {
       .section-bg-trees, .section-bg-whale { background-attachment: scroll; }
+      .hero-bg { background-image: linear-gradient(180deg, rgba(5,6,26,0.35) 0%, rgba(5,6,26,0.55) 45%, rgba(5,6,26,0.97) 100%), url('images/real/hero-mobile-penguin.webp'); background-position: center 40%; }
     }
 
     .stat-num { text-shadow: 0 0 16px rgba(245,197,66,0.4); }
@@ -319,6 +320,19 @@
 
   <!-- ============ NAV ============ -->
   <header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-gradient-to-b from-midnight/70 via-midnight/30 to-transparent">
+    <script>
+      // Shared: push the hero down by the combined height of all visible announcement banners
+      window.hgBannerPad = function () {
+        var t = document.getElementById('top'); if (!t) return;
+        t.style.paddingTop = '';
+        var h = 0;
+        ['dino-banner', 'bf-banner'].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && el.style.display !== 'none') h += el.offsetHeight;
+        });
+        if (h) t.style.paddingTop = (parseFloat(getComputedStyle(t).paddingTop) + h) + 'px';
+      };
+    </script>
     <!-- ===== FREE DINO RIDE BANNER (Nov 23–24, 2026) — hides itself after Tue 11/24 9:30 PM PT; safe to delete after ===== -->
     <div id="dino-banner" style="display:none">
       <a href="https://harborglownights.ticketing.tscheckout.com/" class="dino-banner__link">
@@ -357,12 +371,7 @@
         try { if (sessionStorage.getItem('dinoBannerClosed') === '1') return; } catch (e) {}
         b.style.display = 'block';
         // Push the hero down by the banner's height so the banner never covers it
-        function pad() {
-          var t = document.getElementById('top'); if (!t) return;
-          t.style.paddingTop = '';
-          if (b.style.display === 'none') return;
-          t.style.paddingTop = (parseFloat(getComputedStyle(t).paddingTop) + b.offsetHeight) + 'px';
-        }
+        function pad() { window.hgBannerPad && window.hgBannerPad(); }
         document.addEventListener('DOMContentLoaded', pad);
         window.addEventListener('resize', pad);
         b.querySelector('.dino-banner__close').addEventListener('click', function () {
@@ -372,6 +381,51 @@
       })();
     </script>
     <!-- ===== END FREE DINO RIDE BANNER ===== -->
+    <!-- ===== BLACK FRIDAY SALE BANNER (Tue 11/24 – Mon 11/30, 2026) — hides itself after Mon 11/30 11:59 PM PT; safe to delete after ===== -->
+    <div id="bf-banner" style="display:none">
+      <a href="https://harborglownights.ticketing.tscheckout.com/" class="bf-banner__link">
+        <span class="bf-banner__text">
+          <span class="bf-banner__long"><strong>Black Friday Sale:</strong> 20% off everything with code <span class="bf-banner__code">BFGLOWNIGHTS</span> · Ends Mon 11/30</span>
+          <span class="bf-banner__short">20% off with code <span class="bf-banner__code">BFGLOWNIGHTS</span> · Ends 11/30 →</span>
+        </span>
+        <span class="bf-banner__cta">Get Tickets →</span>
+      </a>
+      <button type="button" class="bf-banner__close" aria-label="Close announcement">×</button>
+    </div>
+    <style>
+      #bf-banner { position: relative; background: linear-gradient(90deg,#f5c542 0%,#ffe08a 50%,#f5c542 100%); border-bottom: 1px solid rgba(5,6,26,.25); }
+      .bf-banner__link { display:flex; align-items:center; justify-content:center; gap:12px; padding:9px 48px 9px 16px; color:#05061a; text-decoration:none; font-size:15px; line-height:1.35; text-align:center; }
+      .bf-banner__text strong { font-weight:800; }
+      .bf-banner__code { font-weight:800; letter-spacing:.04em; white-space:nowrap; }
+      .bf-banner__short { display:none; white-space:nowrap; }
+      .bf-banner__cta { flex-shrink:0; background:#05061a; color:#f5c542; font-weight:700; font-size:14px; padding:5px 14px; border-radius:999px; white-space:nowrap; }
+      .bf-banner__link:hover .bf-banner__cta { background:#1b0b3f; }
+      .bf-banner__close { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(5,6,26,.65); font-size:22px; line-height:1; cursor:pointer; padding:4px 8px; }
+      .bf-banner__close:hover { color:#05061a; }
+      @media (max-width:720px) {
+        .bf-banner__link { font-size:13px; padding:8px 38px 8px 10px; }
+        .bf-banner__long, .bf-banner__cta { display:none; }
+        .bf-banner__short { display:inline; }
+      }
+    </style>
+    <script>
+      (function () {
+        var START = Date.parse('2026-11-24T08:00:00Z'); // Tue 11/24 12:00 AM PT
+        var END = Date.parse('2026-12-01T07:59:59Z');   // Mon 11/30 11:59 PM PT
+        var b = document.getElementById('bf-banner');
+        var now = Date.now();
+        if (!b || now < START || now > END) return;
+        try { if (sessionStorage.getItem('bfBannerClosed') === '1') return; } catch (e) {}
+        b.style.display = 'block';
+        document.addEventListener('DOMContentLoaded', function () { window.hgBannerPad && window.hgBannerPad(); });
+        window.addEventListener('resize', function () { window.hgBannerPad && window.hgBannerPad(); });
+        b.querySelector('.bf-banner__close').addEventListener('click', function () {
+          b.style.display = 'none'; window.hgBannerPad && window.hgBannerPad();
+          try { sessionStorage.setItem('bfBannerClosed', '1'); } catch (e) {}
+        });
+      })();
+    </script>
+    <!-- ===== END BLACK FRIDAY SALE BANNER ===== -->
     <nav class="max-w-7xl 2xl:max-w-[1600px] mx-auto grid grid-cols-[1fr_auto_1fr] items-center gap-4 px-5 sm:px-8 py-3 sm:py-4">
       <a href="#top" class="relative inline-block justify-self-start" aria-label="Harbor Glow home">
         <img src="images/logo.webp" alt="Harbor Glow by Glow Works" class="logo-mark h-12 sm:h-16 w-auto" />
@@ -560,28 +614,39 @@
     </div>
   </section>
 
+  <!-- PREVIEW: full-width walk-through photo -->
+  <section class="relative z-10">
+    <figure class="relative">
+      <img src="images/real/walk-through-arch.webp" alt="Guests walking through a glowing whale-tail archway at Harbor Glow, West Harbor, San Pedro" class="w-full h-[55svh] sm:h-[75svh] object-cover" loading="lazy" />
+      <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-midnight via-midnight/70 to-transparent px-6 pt-24 pb-10 text-center">
+        <p class="font-display text-3xl sm:text-5xl font-bold glow-text">Two Worlds, One Walk.</p>
+        <p class="mt-3 text-white/80 text-sm sm:text-base">About 40 minutes to an hour on foot, right on the LA Waterfront.</p>
+      </figcaption>
+    </figure>
+  </section>
+
   <!-- ============ EXPERIENCE TEASER ============ -->
   <section id="experience" class="relative z-10 border-y border-white/10 bg-midnight/40">
     <div class="max-w-6xl 2xl:max-w-[1400px] mx-auto px-5 sm:px-8 py-24 text-center">
       <p class="uppercase tracking-[0.3em] text-xs text-electric-soft/80 mb-4">The Experience</p>
       <h2 class="font-display text-4xl sm:text-5xl font-bold glow-blue text-electric-soft">Winter Dreamscape to World Beneath the Waves.</h2>
       <p class="mt-5 text-white/70 leading-relaxed max-w-2xl mx-auto">
-        A self-guided journey through two illuminated worlds built along the water's edge — seventeen
+        A self-guided journey through two illuminated worlds built along the water's edge — more than 15
         scenes, from a crystal winter dreamscape to a bioluminescent world beneath the waves.
       </p>
 
       <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 text-left">
         <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <img src="images/snowmen.webp" alt="Christmas Wonderland — Santa emerging from a chimney with a gingerbread man and snowman family" class="w-full h-56 object-cover" loading="lazy" />
-          <figcaption class="px-5 py-4 text-sm text-white/75">Christmas Wonderland</figcaption>
+          <img src="images/real/teaser-winter-snowmen.webp" alt="Glowing snowmen and crystal trees in Winter Dreamscape at Harbor Glow, San Pedro" class="w-full h-56 object-cover" loading="lazy" />
+          <figcaption class="px-5 py-4 text-sm text-white/75">Winter Dreamscape</figcaption>
         </figure>
         <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <img src="images/flowers.webp" alt="Crystal Ice Garden — towering illuminated ice blooms" class="w-full h-56 object-cover" loading="lazy" />
-          <figcaption class="px-5 py-4 text-sm text-white/75">Crystal Ice Garden</figcaption>
+          <img src="images/real/teaser-ocean.webp" alt="Giant glowing octopus and jellyfish in World Beneath the Waves at Harbor Glow" class="w-full h-56 object-cover" loading="lazy" />
+          <figcaption class="px-5 py-4 text-sm text-white/75">World Beneath the Waves</figcaption>
         </figure>
         <figure class="card-glow rounded-2xl overflow-hidden border border-white/10 bg-white/[0.03]">
-          <img src="images/whale.webp" alt="Deep Sea Encounter — winged whale light sculpture" class="w-full h-56 object-cover" loading="lazy" />
-          <figcaption class="px-5 py-4 text-sm text-white/75">Deep Sea Encounter</figcaption>
+          <img src="images/real/teaser-photo-frame.webp" alt="Crystal dolphins inside a glowing ice photo frame, with the harbor behind, at Harbor Glow" class="w-full h-56 object-cover" loading="lazy" />
+          <figcaption class="px-5 py-4 text-sm text-white/75">Made for photos</figcaption>
         </figure>
       </div>
 
@@ -589,7 +654,7 @@
          class="mt-12 inline-block rounded-full border border-white/25 text-white/90 font-medium text-base px-8 py-4 hover:border-electric hover:text-electric-soft transition-all duration-300">
         Explore All the Scenes →
       </a>
-      <p class="mt-5 text-xs text-white/35 italic">Concept imagery — design concept, final execution may vary.</p>
+      <p class="mt-5 text-xs text-white/35 italic">Photos from Harbor Glow 2026.</p>
     </div>
   </section>
 
@@ -772,7 +837,7 @@
           <a href="https://www.facebook.com/harborglownights" target="_blank" rel="noopener" aria-label="Harbor Glow on Facebook" title="Facebook" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gold/50 bg-white/[0.06] text-gold-soft hover:bg-gold hover:text-midnight hover:border-gold transition-colors"><svg viewBox="4 3 16 18" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M14 9.5V8c0-.6.4-1 1-1h1.5V4H14c-2.2 0-4 1.8-4 4v1.5H8V12h2v8h3v-8h2.2l.4-2.5H13V9.5z"/></svg></a>
         </div>
       </div>
-      <p class="mt-4 text-[11px] text-white/30 italic">Images shown throughout this site are concept imagery — design concept, final execution may vary. Dates, hours, programming and operating details are subject to change.</p>
+      <p class="mt-4 text-[11px] text-white/30 italic">Photos from Harbor Glow 2026. Dates, hours, programming and operating details are subject to change.</p>
     </div>
   </footer>
 
